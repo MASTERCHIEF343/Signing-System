@@ -1,10 +1,10 @@
 "use strict";
 var Register = (function () {
-    function Register(id, name, direct, alterEgo) {
+    function Register(id, name, email, direct) {
         this.id = id;
         this.name = name;
+        this.email = email;
         this.direct = direct;
-        this.alterEgo = alterEgo;
     }
     return Register;
 }());

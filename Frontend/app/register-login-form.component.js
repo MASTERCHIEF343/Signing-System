@@ -13,15 +13,24 @@ var register_1 = require('./register');
 var Registerloginfrom = (function () {
     function Registerloginfrom() {
         this.directs = ['PHP', 'Java', 'HTML', 'Hardware'];
-        this.model = new register_1.Register(1, 'Masterchief', this.directs[0], 'Chuck Overstreet');
+        this.model = new register_1.Register(1, 'Masterchief', 'qwe', this.directs[0]);
         this.submitted = false;
+        this.active = true;
     }
     Registerloginfrom.prototype.onSubmit = function () { this.submitted = true; };
     Object.defineProperty(Registerloginfrom.prototype, "diagnostic", {
+        //show results
         get: function () { return JSON.stringify(this.model); },
         enumerable: true,
         configurable: true
     });
+    //add new
+    Registerloginfrom.prototype.newRegister = function () {
+        var _this = this;
+        this.model = new register_1.Register(2, '', '', '');
+        this.active = false;
+        setTimeout(function () { return _this.active = true; }, 0);
+    };
     Registerloginfrom = __decorate([
         core_1.Component({
             moduleId: module.id,
