@@ -10,8 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
-var forms_1 = require('@angular/forms');
 var http_1 = require('@angular/http');
+var forms_1 = require('@angular/forms');
 var app_component_1 = require('./app.component');
 var register_login_form_component_1 = require('./register-login-form.component');
 var app_routing_module_1 = require('./app-routing.module');
@@ -23,12 +23,17 @@ var AppModule = (function () {
             imports: [
                 platform_browser_1.BrowserModule,
                 forms_1.FormsModule,
+                forms_1.ReactiveFormsModule,
                 http_1.HttpModule,
-                app_routing_module_1.AppRoutingModule,
+                http_1.JsonpModule,
+                app_routing_module_1.routing,
             ],
             declarations: [
                 app_component_1.AppComponent,
                 register_login_form_component_1.Registerloginfrom
+            ],
+            providers: [
+                app_routing_module_1.appRoutingProviders
             ],
             bootstrap: [
                 app_component_1.AppComponent

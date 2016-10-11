@@ -9,35 +9,91 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var forms_1 = require('@angular/forms');
 var register_1 = require('./register');
 var Registerloginfrom = (function () {
-    function Registerloginfrom() {
+    function Registerloginfrom(fb) {
+        this.fb = fb;
+        this.data = new register_1.Register(1, '', '', '', '');
+        this.formErrors = {
+            'name': '',
+            'email': '',
+            'passwd': ''
+        };
+        this.validationMessages = {
+            'name': {
+                'required': 'Name is required.',
+                'minlength': 'Name must be at least 4 characters long',
+            },
+            'email': {
+                'required': 'Email is required.',
+            },
+            'passwd': {
+                'required': 'Passwd is required.',
+                'minlength': 'Passwd must be at least 6 characters long',
+                'maxlength': 'Passwd can not be more than 24 characters long'
+            }
+        };
         this.directs = ['PHP', 'Java', 'HTML', 'Hardware'];
-        this.model = new register_1.Register(1, 'Masterchief', 'qwe', this.directs[0]);
         this.submitted = false;
         this.active = true;
     }
-    Registerloginfrom.prototype.onSubmit = function () { this.submitted = true; };
+    Registerloginfrom.prototype.ngOnInit = function () {
+        this.buildForm();
+    };
+    Registerloginfrom.prototype.buildForm = function () {
+        var _this = this;
+        this.heroForm = this.fb.group({
+            'name': [this.data.name, [
+                    forms_1.Validators.required,
+                    forms_1.Validators.minLength(4)
+                ]],
+            'email': [this.data.email, [
+                    forms_1.Validators.required
+                ]],
+            'passwd': [this.data.passwd, [
+                    forms_1.Validators.required,
+                    forms_1.Validators.minLength(6),
+                    forms_1.Validators.maxLength(24)
+                ]]
+        });
+        this.heroForm.valueChanges.subscribe(function (data) { return _this.onValueChanged(data); });
+        this.onValueChanged();
+    };
+    Registerloginfrom.prototype.onValueChanged = function (data) {
+        if (!this.heroForm) {
+            return;
+        }
+        var form = this.heroForm;
+        for (var field in this.formErrors) {
+            this.formErrors[field] = '';
+            var control = form.get(field);
+            if (control && control.dirty && !control.valid) {
+                var messages = this.validationMessages[field];
+                for (var key in control.errors) {
+                    this.formErrors[field] += messages[key] + ' ';
+                }
+            }
+        }
+    };
+    Registerloginfrom.prototype.onSubmit = function () {
+        this.data = this.heroForm.value;
+        this.submitted = true;
+    };
     Object.defineProperty(Registerloginfrom.prototype, "diagnostic", {
-        //show results
-        get: function () { return JSON.stringify(this.model); },
+        get: function () {
+            return JSON.stringify(this.data);
+        },
         enumerable: true,
         configurable: true
     });
-    //add new
-    Registerloginfrom.prototype.newRegister = function () {
-        var _this = this;
-        this.model = new register_1.Register(2, '', '', '');
-        this.active = false;
-        setTimeout(function () { return _this.active = true; }, 0);
-    };
     Registerloginfrom = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'register-form',
-            templateUrl: 'register-login-form.html'
+            templateUrl: 'register-login-form.html',
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [forms_1.FormBuilder])
     ], Registerloginfrom);
     return Registerloginfrom;
 }());
