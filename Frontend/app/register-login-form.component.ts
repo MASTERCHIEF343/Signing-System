@@ -1,8 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 import { Register } from './register';
+import { RegisterService } from './register.service';
+
+import './rxjs-operators';
 
 import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
@@ -12,14 +15,20 @@ import { Headers, RequestOptions } from '@angular/http';
 	moduleId: module.id,
 	selector: 'register-form',
 	templateUrl: 'register-login-form.html',
+	providers: [ RegisterService ]
 })
 
 export class Registerloginfrom  {
-	
-	data = new Register(1,'','','','');
+	errorMessage: string;
+	register: Register;
+	data = new Register('','','','');
 
 	heroForm: FormGroup;
-	constructor(private fb: FormBuilder) { }
+	constructor(
+		private http: Http,
+		private fb: FormBuilder,
+		private rgservice: RegisterService, 
+	) { }
 
 	ngOnInit(): void{
 		this.buildForm();
@@ -38,6 +47,9 @@ export class Registerloginfrom  {
 				Validators.required,
 				Validators.minLength(6),
 				Validators.maxLength(24)
+			]],
+			'direct':[this.data.direct,[
+				Validators.required
 			]]
 		});
 		this.heroForm.valueChanges.subscribe(data => this.onValueChanged(data));
@@ -48,7 +60,8 @@ export class Registerloginfrom  {
 	formErrors = {
 		'name': '',
 		'email': '',
-		'passwd': ''
+		'passwd': '',
+		'direct': ''
 	}
 
 	validationMessages = {
@@ -63,6 +76,9 @@ export class Registerloginfrom  {
 			'required': 'Passwd is required.',
 			'minlength': 'Passwd must be at least 6 characters long',
 			'maxlength': 'Passwd can not be more than 24 characters long'
+		},
+		'direct': {
+			'required': 'Direct is required.'
 		}
 	}
 
@@ -83,17 +99,22 @@ export class Registerloginfrom  {
 		}
 	}
 
-	registerUrl;
 	directs = ['PHP','Java','HTML','Hardware'];
 	submitted = false;
 	active = true;
 
-
 	onSubmit(){ 
 		this.data = this.heroForm.value;
-		this.submitted = true;
-	}
-	get diagnostic() { 
-		return JSON.stringify(this.data); 
+		this.rgservice.addRegister(this.data).subscribe(
+			function(response:any) { 
+				if(response.error){
+					alert(response.error);
+				}else{
+					this.submitted = true;
+				}
+			},
+			function(error) { console.log("Error happened" + error)},
+			function() { console.log("the subscription is completed")}
+		);
 	}
 }

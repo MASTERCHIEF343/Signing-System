@@ -11,14 +11,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var forms_1 = require('@angular/forms');
 var register_1 = require('./register');
+var register_service_1 = require('./register.service');
+require('./rxjs-operators');
+var http_1 = require('@angular/http');
 var Registerloginfrom = (function () {
-    function Registerloginfrom(fb) {
+    function Registerloginfrom(http, fb, rgservice) {
+        this.http = http;
         this.fb = fb;
-        this.data = new register_1.Register(1, '', '', '', '');
+        this.rgservice = rgservice;
+        this.data = new register_1.Register('', '', '', '');
         this.formErrors = {
             'name': '',
             'email': '',
-            'passwd': ''
+            'passwd': '',
+            'direct': ''
         };
         this.validationMessages = {
             'name': {
@@ -32,6 +38,9 @@ var Registerloginfrom = (function () {
                 'required': 'Passwd is required.',
                 'minlength': 'Passwd must be at least 6 characters long',
                 'maxlength': 'Passwd can not be more than 24 characters long'
+            },
+            'direct': {
+                'required': 'Direct is required.'
             }
         };
         this.directs = ['PHP', 'Java', 'HTML', 'Hardware'];
@@ -55,6 +64,9 @@ var Registerloginfrom = (function () {
                     forms_1.Validators.required,
                     forms_1.Validators.minLength(6),
                     forms_1.Validators.maxLength(24)
+                ]],
+            'direct': [this.data.direct, [
+                    forms_1.Validators.required
                 ]]
         });
         this.heroForm.valueChanges.subscribe(function (data) { return _this.onValueChanged(data); });
@@ -78,22 +90,23 @@ var Registerloginfrom = (function () {
     };
     Registerloginfrom.prototype.onSubmit = function () {
         this.data = this.heroForm.value;
-        this.submitted = true;
+        this.rgservice.addRegister(this.data).subscribe(function (response) {
+            if (response.error) {
+                alert(response.error);
+            }
+            else {
+                this.submitted = true;
+            }
+        }, function (error) { console.log("Error happened" + error); }, function () { console.log("the subscription is completed"); });
     };
-    Object.defineProperty(Registerloginfrom.prototype, "diagnostic", {
-        get: function () {
-            return JSON.stringify(this.data);
-        },
-        enumerable: true,
-        configurable: true
-    });
     Registerloginfrom = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'register-form',
             templateUrl: 'register-login-form.html',
+            providers: [register_service_1.RegisterService]
         }), 
-        __metadata('design:paramtypes', [forms_1.FormBuilder])
+        __metadata('design:paramtypes', [http_1.Http, forms_1.FormBuilder, register_service_1.RegisterService])
     ], Registerloginfrom);
     return Registerloginfrom;
 }());

@@ -1,6 +1,5 @@
 <div class="container">
 	<h1>Register Form</h1>
-	{{diagnostic}}
 	<div [hidden]="submitted">
 		   <form [formGroup]="heroForm"  *ngIf="active"  (ngSubmit)="onSubmit()">
 			<div class="form-group">
@@ -25,14 +24,13 @@
 					{{ formErrors.passwd }}
 				</div>
 			</div>
-			<!-- <div class="form-group">
-				<label for="power">方向</label>
-				<select class="form-control"  id="power"
-					required
-					[(ngModel)]="data.direct" name="power">
-					<option *ngFor="let d of directs" [value]="d">{{d}}</option>
-				</select>
-			</div> -->
+			<div class="form-group">
+				<label for="direct">方向</label>
+				<input type="direct" class="form-control" required formControlName="direct">
+				<div *ngIf="formErrors.direct" class="alert alert-danger">
+					{{ formErrors.direct }}
+				</div>
+			</div>
 			<button type="submit"  class="btn btn-default" [disabled]="!heroForm.valid">Submit</button>
 			<button type="button" class="btn btn-default" (click)="newRegister()">Sign Up</button>
 		</form>

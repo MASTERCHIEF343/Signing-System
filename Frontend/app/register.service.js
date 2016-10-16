@@ -9,13 +9,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-require('rxjs/add/operator/toPromise');
+var http_1 = require('@angular/http');
+var http_2 = require('@angular/http');
+var Observable_1 = require('rxjs/Observable');
 var RegisterService = (function () {
-    function RegisterService() {
+    function RegisterService(http) {
+        this.http = http;
+        this.backendUrl = 'http://localhost/signing-system/Backend/register';
     }
+    RegisterService.prototype.addRegister = function (data) {
+        var body = JSON.parse(JSON.stringify(data));
+        var headers = new http_2.Headers({ 'Content-Type': 'application/json' });
+        var options = new http_2.RequestOptions({ headers: headers });
+        return this.http.post(this.backendUrl, body, options).map(this.extracData).catch(this.handleError);
+    };
+    RegisterService.prototype.extracData = function (res) {
+        var body = res.json();
+        return body || {};
+    };
+    RegisterService.prototype.handleError = function (error) {
+        var errMsg = (error.message) ? error.message : error.status ? error.status + " - " + error.statusText : 'Server error';
+        console.error(errMsg);
+        return Observable_1.Observable.throw(errMsg);
+    };
     RegisterService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [http_1.Http])
     ], RegisterService);
     return RegisterService;
 }());

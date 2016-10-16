@@ -1,7 +1,6 @@
 "use strict";
 var Register = (function () {
-    function Register(id, name, email, passwd, direct) {
-        this.id = id;
+    function Register(name, email, passwd, direct) {
         this.name = name;
         this.email = email;
         this.passwd = passwd;
