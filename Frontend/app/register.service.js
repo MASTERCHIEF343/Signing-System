@@ -15,15 +15,23 @@ var Observable_1 = require('rxjs/Observable');
 var RegisterService = (function () {
     function RegisterService(http) {
         this.http = http;
-        this.backendUrl = 'http://localhost/signing-system/Backend/register';
+        this.logupUrl = 'http://localhost/signing-system/Backend/logup';
+        this.loginUrl = 'http://localhost/signing-system/Backend/login';
+        this.result = [];
     }
     RegisterService.prototype.addRegister = function (data) {
-        var body = JSON.parse(JSON.stringify(data));
+        var body = JSON.stringify({ data: data });
         var headers = new http_2.Headers({ 'Content-Type': 'application/json' });
         var options = new http_2.RequestOptions({ headers: headers });
-        return this.http.post(this.backendUrl, body, options).map(this.extracData).catch(this.handleError);
+        return this.http.post(this.logupUrl, body, options).map(this.extractData).catch(this.handleError);
     };
-    RegisterService.prototype.extracData = function (res) {
+    RegisterService.prototype.checkRegister = function (data) {
+        var body = JSON.stringify({ data: data });
+        var headers = new http_2.Headers({ 'Content-Type': 'application/json' });
+        var options = new http_2.RequestOptions({ headers: headers });
+        return this.http.post(this.loginUrl, body, options).map(this.extractData).catch(this.handleError);
+    };
+    RegisterService.prototype.extractData = function (res) {
         var body = res.json();
         return body || {};
     };

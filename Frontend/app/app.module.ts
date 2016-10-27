@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent }   from './app.component';
 import { Registerloginfrom } from './register-login-form.component';
+import { Registerlogupfrom } from './register-logup-form.component';
 
 import{ routing, appRoutingProviders } from './app-routing.module';
 
@@ -20,7 +21,8 @@ import{ routing, appRoutingProviders } from './app-routing.module';
 	],
 	declarations: [
 		AppComponent,
-		Registerloginfrom
+		Registerloginfrom,
+		Registerlogupfrom
 	],
 	providers: [
 		appRoutingProviders

@@ -14,6 +14,7 @@ var http_1 = require('@angular/http');
 var forms_1 = require('@angular/forms');
 var app_component_1 = require('./app.component');
 var register_login_form_component_1 = require('./register-login-form.component');
+var register_logup_form_component_1 = require('./register-logup-form.component');
 var app_routing_module_1 = require('./app-routing.module');
 var AppModule = (function () {
     function AppModule() {
@@ -30,7 +31,8 @@ var AppModule = (function () {
             ],
             declarations: [
                 app_component_1.AppComponent,
-                register_login_form_component_1.Registerloginfrom
+                register_login_form_component_1.Registerloginfrom,
+                register_logup_form_component_1.Registerlogupfrom
             ],
             providers: [
                 app_routing_module_1.appRoutingProviders

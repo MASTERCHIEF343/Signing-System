@@ -1,29 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Angular HW</title>
-	 <meta name="viewport" content="width=device-width, initial-scale=1">
-	<base href="http://localhost/signing-system/Frontend/">
-	<link rel="stylesheet"
-		href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	<link rel="stylesheet" type="text/css" href="forms.css">
+<html>
+    <head>
+        <title>Angular QuickStart</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="masterchief">
+        <meta name="description" content="signing-system">
+        <!-- 1. Load libraries -->
+        <!-- Polyfill(s) for older browsers -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="forms.css">
+        <base href="http://localhost/signing-system/Frontend/">
+        <script src="node_modules/core-js/client/shim.min.js"></script>
+        <script src="node_modules/zone.js/dist/zone.js"></script>
+        <script src="node_modules/reflect-metadata/Reflect.js"></script>
+        <script src="node_modules/systemjs/dist/system.src.js"></script>
+        <!-- 2. Configure SystemJS -->
+        <script src="systemjs.config.js"></script>
+        <!-- 新 Bootstrap 核心 CSS 文件 -->
+        <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
 
-	 <!-- 1. Load libraries -->
-	  <!-- Polyfill(s) for older browsers -->
-	<script src="node_modules/core-js/client/shim.min.js"></script>
-	<script src="node_modules/zone.js/dist/zone.js"></script>
-	<script src="node_modules/reflect-metadata/Reflect.js"></script>
-	<script src="node_modules/systemjs/dist/system.src.js"></script>
+        <!-- 可选的Bootstrap主题文件（一般不用引入） -->
+        <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
 
-	 <!-- 2. Configure SystemJS -->
-	<script src="systemjs.config.js"></script>
-	<script>
-	System.import('app').catch(function(err){ console.error(err); });
-	</script>
-</head>
-<body>
-	<my-app>Loading ....</my-app>
-</body>
+        <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+        <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+
+        <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+        <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script>
+        System.import('app').catch(function(err){ console.error(err); });
+        </script>
+    </head>
+    <!-- 3. Display the application -->
+    <body>
+        <my-app>Loading...</my-app>
+    </body>
 </html>

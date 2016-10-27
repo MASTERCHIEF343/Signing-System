@@ -1,0 +1,35 @@
+<div class="container">
+	<h2>Log up</h2>
+	<form [formGroup]="logupForm"  *ngIf="active"  (ngSubmit)="onSubmit()">
+		<div class="form-group">
+			<label for="name">姓名</label>
+			<input type="text" id="name" class="form-control"
+			formControlName="name" required >
+			<div *ngIf="formErrors.name" class="alert alert-danger">
+				{{ formErrors.name }}
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="email">邮箱</label>
+			<input type="email" class="form-control" required formControlName="email">
+			<div *ngIf="formErrors.email" class="alert alert-danger">
+				{{ formErrors.email }}
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="passwd">登录密码</label>
+			<input type="passwd" class="form-control" required formControlName="passwd">
+			<div *ngIf="formErrors.passwd" class="alert alert-danger">
+				{{ formErrors.passwd }}
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="direct">方向</label>
+			<input type="direct" class="form-control" required formControlName="direct">
+			<div *ngIf="formErrors.direct" class="alert alert-danger">
+				{{ formErrors.direct }}
+			</div>
+		</div>
+		<button type="submit"  class="btn btn-default" [disabled]="!logupForm.valid">注册</button>
+	</form>
+</div>

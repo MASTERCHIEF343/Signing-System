@@ -3,28 +3,33 @@ import { Http, Response} from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 
 import { Register } from './register'; 
+import { User } from './user';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 
 export class RegisterService {
-	private backendUrl = 'http://localhost/signing-system/Backend/register';
+	private logupUrl = 'http://localhost/signing-system/Backend/logup';
+	private loginUrl = 'http://localhost/signing-system/Backend/login';
+	private result = [];
 
 	constructor(private http:Http) {}
 
 	addRegister(data): Observable<Register>{
-		let body = JSON.parse(JSON.stringify(data));
-		let headers = new Headers({'Content-Type':'application/json'});
-		let options = new RequestOptions({headers:headers});
-
-		return this.http.post(
-			this.backendUrl,
-			body,
-			options
-		).map(this.extracData).catch(this.handleError);
+		let body = JSON.stringify({data});
+		let headers = new Headers({ 'Content-Type': 'application/json' });
+		let options = new RequestOptions({ headers: headers });
+		return this.http.post(this.logupUrl, body, options).map(this.extractData).catch(this.handleError);
 	}
 
-	private extracData(res: Response) {
+	checkRegister(data): Observable<User>{
+		let body = JSON.stringify({data});
+		let headers = new Headers({ 'Content-Type': 'application/json' });
+		let options = new RequestOptions({ headers: headers });
+		return this.http.post(this.loginUrl, body, options).map(this.extractData).catch(this.handleError);
+	}
+
+	private extractData(res: Response) {
 		let body = res.json();
 		return body || { };
 	}
@@ -35,3 +40,4 @@ export class RegisterService {
 		return Observable.throw(errMsg);
 	}
 }
+
