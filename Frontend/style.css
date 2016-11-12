@@ -1,5 +1,19 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
 nav{
 	height: 58px;
+}
+body{
+	height: 1000px;
+}
+a{
+	cursor: pointer;
+}
+.container-fluid{
+	padding-right: 0px;
+	width: 100%;
 }
 .navbar>*{
 	height: inherit;
@@ -20,13 +34,16 @@ nav{
 	background-color: #1976D2;
 	background-image: none;
 }
+.navbar-header{
+	margin-left: 15px;
+}
 .navbar-brand{
 	background: url(img/S.png)  8px  no-repeat;
 	color: #fff;
 	height: 56px;
 	margin-right: 72px;
-	text-indent: 30px;
-	line-height: 35px;
+	text-indent: 45px;
+	line-height: 55px;
 	font-size: 20px;
 	font-weight: 500;
 	transition: background-color 0.3s;
@@ -56,17 +73,4 @@ nav{
 .navbar-nav>li>a:active{
 	background-color: #1E88E5;
 	color: #fff;
-}
-/*
-header
-*/
-.header{
-	padding: 48px 48px 32px 48px;
-	position: relative;
-	height: 168px;
-}
-.background-sky{
-	background-color: #1976D2;
-	background: -webkit-linear-gradient(305deg,#0D47A1,#42A5F5);
-	background: linear-gradient(145deg,#0D47A1,#42A5F5);
 }

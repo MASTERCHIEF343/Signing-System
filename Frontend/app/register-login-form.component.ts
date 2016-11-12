@@ -1,24 +1,27 @@
-import { Component, ViewChild  } from '@angular/core';
+//Core
+import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
-
-import './rxjs-operators';
-
-import { User } from './user';
-import { RegisterService } from './register.service';
-
 import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
+//Class
+import { User } from './user';
+//Providers
+import { RegisterService } from './register.service';
+import { CookieService } from 'angular2-cookie/core';
 
 @Component({
 	moduleId: module.id,
-	selector: 'register-login-form',
+	selector: 'ng-login',
 	templateUrl: 	'register-login-form.html',
+	styleUrls:['../forms.css'],
 	providers: [ RegisterService ]
 })
 
 export class Registerloginfrom {
+	title = '登录';
+
 	active = true;
 	data = new User('', '');
 
@@ -29,6 +32,7 @@ export class Registerloginfrom {
 		private router: Router,
 		private fb: FormBuilder,
 		private rgservice: RegisterService, 
+		private _cookieService:CookieService
 	) { } 
 
 	navTologup(): void{
@@ -92,12 +96,34 @@ export class Registerloginfrom {
 		}
 	}
 
+	errors = false;
+  	private result:Array<number> = [];
+  	private errs: Array<string> =  [];
+  	private errorMsgs:Array<string> =  [];
+
 	onSubmit(){
 		this.data = this.loginForm.value;
 		this.rgservice.checkRegister(this.data).subscribe(
-			function(res){
-				console.log(res);
-			}
+			res => this.checkResponse(res),
+			err => this.errorMsgs.push(err)
 		);
 	}
+
+	checkResponse(res){
+		if(res.error){
+			this.errors = true;	
+			this.errs = res.error;
+		}else if(res.id){			
+			let params = {"id": res.id, "name":this.data.name, "passwd":this.data.passwd};
+			this.setCookie("u", params);
+			this.router.navigate(['/member']);
+		}else{
+			this.errorMsgs.push("Unknown error.");
+		}
+	}
+
+	setCookie(key:string, value: Object){
+		this._cookieService.putObject(key, value);
+	}
+
 }

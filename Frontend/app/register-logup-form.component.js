@@ -8,17 +8,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var forms_1 = require('@angular/forms');
-var register_1 = require('./register');
-var register_service_1 = require('./register.service');
-require('./rxjs-operators');
-var http_1 = require('@angular/http');
+//Core
+var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
+var http_1 = require("@angular/http");
+var router_1 = require("@angular/router");
+//Class
+var register_1 = require("./register");
+//Providers
+var register_service_1 = require("./register.service");
+var core_2 = require("angular2-cookie/core");
 var Registerlogupfrom = (function () {
-    function Registerlogupfrom(http, fb, rgservice) {
+    function Registerlogupfrom(http, router, fb, rgservice, _cookieService) {
         this.http = http;
+        this.router = router;
         this.fb = fb;
         this.rgservice = rgservice;
+        this._cookieService = _cookieService;
+        this.title = '注册';
         this.data = new register_1.Register('', '', '', '');
         this.active = true;
         this.formErrors = {
@@ -44,6 +51,10 @@ var Registerlogupfrom = (function () {
                 'required': 'Direct is required.'
             }
         };
+        this.errors = false;
+        this.result = [];
+        this.errs = [];
+        this.errorMsgs = [];
     }
     Registerlogupfrom.prototype.ngOnInit = function () {
         this.buildForm();
@@ -87,21 +98,41 @@ var Registerlogupfrom = (function () {
         }
     };
     Registerlogupfrom.prototype.onSubmit = function () {
+        var _this = this;
         this.data = this.logupForm.value;
-        this.rgservice.addRegister(this.data).subscribe(function (res) {
-            console.log(res);
-        });
+        this.rgservice.addRegister(this.data).subscribe(function (res) { return _this.checkResponse(res); }, function (err) { return _this.errorMsgs.push(err); });
     };
-    Registerlogupfrom = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'register-form-logup',
-            templateUrl: 'register-logup-form.html',
-            providers: [register_service_1.RegisterService]
-        }), 
-        __metadata('design:paramtypes', [http_1.Http, forms_1.FormBuilder, register_service_1.RegisterService])
-    ], Registerlogupfrom);
+    Registerlogupfrom.prototype.checkResponse = function (res) {
+        if (res.error) {
+            this.errors = true;
+            this.errs = res.error;
+        }
+        else if (res.id) {
+            // this.setCookie("user", {"id": res.id.id, "name":this.data.name, "passwd":this.data.passwd});
+            this.router.navigate(['/member']);
+        }
+        else {
+            this.errorMsgs.push("Unknown error.");
+        }
+    };
+    Registerlogupfrom.prototype.setCookie = function (key, value) {
+        this._cookieService.putObject(key, value);
+    };
     return Registerlogupfrom;
 }());
+Registerlogupfrom = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'ng-logup',
+        templateUrl: 'register-logup-form.html',
+        styleUrls: ['../forms.css'],
+        providers: [register_service_1.RegisterService]
+    }),
+    __metadata("design:paramtypes", [http_1.Http,
+        router_1.Router,
+        forms_1.FormBuilder,
+        register_service_1.RegisterService,
+        core_2.CookieService])
+], Registerlogupfrom);
 exports.Registerlogupfrom = Registerlogupfrom;
 //# sourceMappingURL=register-logup-form.component.js.map

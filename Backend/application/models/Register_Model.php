@@ -11,12 +11,16 @@ class Register_Model extends CI_Model {
 	}
 
 	public function checkNE($name,$email){
-		$cname = $this->db->get_where('register', array('name' => $name))->row();
-		$cemail = $this->db->query('select * from register where email = "'.$email.'"')->row();
+		$cname = $this->db->query('select * from register where name = "'.$name.'"')->row();
 		if(isset($cname->name)){
-			return array('error' => 'Name has been signed.');
-		}else if(isset($cemail->email)){
-			return array('error' => 'Email has been used.');
+			return array('error' => 'Name has been used.');
+		}else{
+			$cemail = $this->db->query('select * from register where email = "'.$email.'"')->row();
+			if(isset($cemail)){
+				return array('error' => 'Email has been used.');
+			}else{
+				return array('success' => 'All can be use');
+			}
 		}
 	}
 
@@ -27,7 +31,7 @@ class Register_Model extends CI_Model {
 		}else{
 			$cpasswd = $this->db->query('select id from register where name = "'.$name.'" and passwd = "'.$passwd.'" ')->row();
 			if(isset($cpasswd->id)){
-				return $cpasswd;
+				return array('id' => $cpasswd->id);
 			}else{
 				return array('error' => 'Passwd is not right.');
 			}

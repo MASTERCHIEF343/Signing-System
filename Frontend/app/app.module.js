@@ -8,42 +8,56 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var platform_browser_1 = require('@angular/platform-browser');
-var http_1 = require('@angular/http');
-var forms_1 = require('@angular/forms');
-var app_component_1 = require('./app.component');
-var register_login_form_component_1 = require('./register-login-form.component');
-var register_logup_form_component_1 = require('./register-logup-form.component');
-var app_routing_module_1 = require('./app-routing.module');
+//Core
+var core_1 = require("@angular/core");
+var platform_browser_1 = require("@angular/platform-browser");
+//Http
+var http_1 = require("@angular/http");
+//Forms
+var forms_1 = require("@angular/forms");
+//Component
+var app_component_1 = require("./app.component");
+var register_login_form_component_1 = require("./register-login-form.component");
+var register_logup_form_component_1 = require("./register-logup-form.component");
+var userindex_component_1 = require("./userindex.component");
+var pagenotfound_component_1 = require("./pagenotfound.component");
+//Providers
+var app_routing_module_1 = require("./app-routing.module");
+var cookies_service_1 = require("angular2-cookie/services/cookies.service");
+//Directive
+var user_menu_directive_1 = require("./user-menu.directive");
 var AppModule = (function () {
     function AppModule() {
     }
-    AppModule = __decorate([
-        core_1.NgModule({
-            imports: [
-                platform_browser_1.BrowserModule,
-                forms_1.FormsModule,
-                forms_1.ReactiveFormsModule,
-                http_1.HttpModule,
-                http_1.JsonpModule,
-                app_routing_module_1.routing,
-            ],
-            declarations: [
-                app_component_1.AppComponent,
-                register_login_form_component_1.Registerloginfrom,
-                register_logup_form_component_1.Registerlogupfrom
-            ],
-            providers: [
-                app_routing_module_1.appRoutingProviders
-            ],
-            bootstrap: [
-                app_component_1.AppComponent
-            ]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], AppModule);
     return AppModule;
 }());
+AppModule = __decorate([
+    core_1.NgModule({
+        imports: [
+            platform_browser_1.BrowserModule,
+            forms_1.FormsModule,
+            forms_1.ReactiveFormsModule,
+            http_1.HttpModule,
+            http_1.JsonpModule,
+            app_routing_module_1.routing,
+        ],
+        declarations: [
+            app_component_1.AppComponent,
+            register_login_form_component_1.Registerloginfrom,
+            register_logup_form_component_1.Registerlogupfrom,
+            userindex_component_1.UserComponent,
+            pagenotfound_component_1.PageNotFoundComponent,
+            user_menu_directive_1.userMenuDirective
+        ],
+        providers: [
+            app_routing_module_1.appRoutingProviders,
+            cookies_service_1.CookieService,
+        ],
+        bootstrap: [
+            app_component_1.AppComponent
+        ]
+    }),
+    __metadata("design:paramtypes", [])
+], AppModule);
 exports.AppModule = AppModule;
 //# sourceMappingURL=app.module.js.map

@@ -8,19 +8,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var forms_1 = require('@angular/forms');
-require('./rxjs-operators');
-var user_1 = require('./user');
-var register_service_1 = require('./register.service');
-var http_1 = require('@angular/http');
-var router_1 = require('@angular/router');
+//Core
+var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
+var http_1 = require("@angular/http");
+var router_1 = require("@angular/router");
+//Class
+var user_1 = require("./user");
+//Providers
+var register_service_1 = require("./register.service");
+var core_2 = require("angular2-cookie/core");
 var Registerloginfrom = (function () {
-    function Registerloginfrom(http, router, fb, rgservice) {
+    function Registerloginfrom(http, router, fb, rgservice, _cookieService) {
         this.http = http;
         this.router = router;
         this.fb = fb;
         this.rgservice = rgservice;
+        this._cookieService = _cookieService;
+        this.title = '登录';
         this.active = true;
         this.data = new user_1.User('', '');
         this.formErrors = {
@@ -38,6 +43,10 @@ var Registerloginfrom = (function () {
                 'maxlength': 'Passwd can not be more than 24 characters long'
             }
         };
+        this.errors = false;
+        this.result = [];
+        this.errs = [];
+        this.errorMsgs = [];
     }
     Registerloginfrom.prototype.navTologup = function () {
         this.router.navigate(['logup']);
@@ -80,21 +89,42 @@ var Registerloginfrom = (function () {
         }
     };
     Registerloginfrom.prototype.onSubmit = function () {
+        var _this = this;
         this.data = this.loginForm.value;
-        this.rgservice.checkRegister(this.data).subscribe(function (res) {
-            console.log(res);
-        });
+        this.rgservice.checkRegister(this.data).subscribe(function (res) { return _this.checkResponse(res); }, function (err) { return _this.errorMsgs.push(err); });
     };
-    Registerloginfrom = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'register-login-form',
-            templateUrl: 'register-login-form.html',
-            providers: [register_service_1.RegisterService]
-        }), 
-        __metadata('design:paramtypes', [http_1.Http, router_1.Router, forms_1.FormBuilder, register_service_1.RegisterService])
-    ], Registerloginfrom);
+    Registerloginfrom.prototype.checkResponse = function (res) {
+        if (res.error) {
+            this.errors = true;
+            this.errs = res.error;
+        }
+        else if (res.id) {
+            var params = { "id": res.id, "name": this.data.name, "passwd": this.data.passwd };
+            this.setCookie("u", params);
+            this.router.navigate(['/member']);
+        }
+        else {
+            this.errorMsgs.push("Unknown error.");
+        }
+    };
+    Registerloginfrom.prototype.setCookie = function (key, value) {
+        this._cookieService.putObject(key, value);
+    };
     return Registerloginfrom;
 }());
+Registerloginfrom = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'ng-login',
+        templateUrl: 'register-login-form.html',
+        styleUrls: ['../forms.css'],
+        providers: [register_service_1.RegisterService]
+    }),
+    __metadata("design:paramtypes", [http_1.Http,
+        router_1.Router,
+        forms_1.FormBuilder,
+        register_service_1.RegisterService,
+        core_2.CookieService])
+], Registerloginfrom);
 exports.Registerloginfrom = Registerloginfrom;
 //# sourceMappingURL=register-login-form.component.js.map

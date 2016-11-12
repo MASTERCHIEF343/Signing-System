@@ -1,24 +1,27 @@
-import { Component, ViewChild } from '@angular/core';
+//Core
+import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
-
-import { Register } from './register';
-import { RegisterService } from './register.service';
-
-import './rxjs-operators';
-
 import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
-
+import { Router } from '@angular/router';
+//Class
+import { Register } from './register';
+//Providers
+import { RegisterService } from './register.service';
+import { CookieService } from 'angular2-cookie/core';
 
 @Component({
 	moduleId: module.id,
-	selector: 'register-form-logup',
+	selector: 'ng-logup',
 	templateUrl: 'register-logup-form.html',
+	styleUrls:['../forms.css'],
 	providers: [ RegisterService ]
 })
 
 export class Registerlogupfrom  {
+	title = '注册';
+	
 	register: Register;
 	data = new Register('','','','');
 
@@ -27,8 +30,10 @@ export class Registerlogupfrom  {
 	logupForm: FormGroup;
 	constructor(
 		private http: Http,
+		private router: Router,
 		private fb: FormBuilder,
 		private rgservice: RegisterService, 
+		private _cookieService:CookieService
 	) { }
 
 	ngOnInit(): void{
@@ -101,13 +106,33 @@ export class Registerlogupfrom  {
 		}
 	}
 
+	errors = false;
+  	private result:Array<number> = [];
+  	private errs: Array<string> =  [];
+  	private errorMsgs:Array<string> =  [];
+
 	onSubmit(){ 
 		this.data = this.logupForm.value;
 		this.rgservice.addRegister(this.data).subscribe(
-			function(res){
-				console.log(res)
-			}
+			res => this.checkResponse(res),
+			err => this.errorMsgs.push(err)
 		);
+	}
+
+	checkResponse(res){
+		if(res.error){
+			this.errors = true;	
+			this.errs = res.error;
+		}else if(res.id){	
+			// this.setCookie("user", {"id": res.id.id, "name":this.data.name, "passwd":this.data.passwd});
+			this.router.navigate(['/member']);
+		}else{
+			this.errorMsgs.push("Unknown error.");
+		}
+	}
+
+	setCookie(key: string, value: Object){
+		this._cookieService.putObject(key, value);
 	}
 
 }

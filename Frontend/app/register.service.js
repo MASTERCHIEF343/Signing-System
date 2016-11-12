@@ -8,43 +8,50 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
-var http_2 = require('@angular/http');
-var Observable_1 = require('rxjs/Observable');
+//Core
+var core_1 = require("@angular/core");
+var http_1 = require("@angular/http");
+var http_2 = require("@angular/http");
+//RxJS
+require("./rxjs-operators");
+var Observable_1 = require("rxjs/Observable");
 var RegisterService = (function () {
     function RegisterService(http) {
         this.http = http;
         this.logupUrl = 'http://localhost/signing-system/Backend/logup';
         this.loginUrl = 'http://localhost/signing-system/Backend/login';
-        this.result = [];
     }
     RegisterService.prototype.addRegister = function (data) {
         var body = JSON.stringify({ data: data });
         var headers = new http_2.Headers({ 'Content-Type': 'application/json' });
         var options = new http_2.RequestOptions({ headers: headers });
-        return this.http.post(this.logupUrl, body, options).map(this.extractData).catch(this.handleError);
+        return this.http.post(this.logupUrl, body, options).map(function (res) { return res.json(); }).catch(this.handleError);
     };
     RegisterService.prototype.checkRegister = function (data) {
         var body = JSON.stringify({ data: data });
         var headers = new http_2.Headers({ 'Content-Type': 'application/json' });
         var options = new http_2.RequestOptions({ headers: headers });
-        return this.http.post(this.loginUrl, body, options).map(this.extractData).catch(this.handleError);
-    };
-    RegisterService.prototype.extractData = function (res) {
-        var body = res.json();
-        return body || {};
+        return this.http.post(this.loginUrl, body, options).map(function (res) { return res.json(); }).catch(this.handleError);
     };
     RegisterService.prototype.handleError = function (error) {
-        var errMsg = (error.message) ? error.message : error.status ? error.status + " - " + error.statusText : 'Server error';
+        // In a real world app, we might use a remote logging infrastructure
+        var errMsg;
+        if (error instanceof http_1.Response) {
+            var body = error.json() || '';
+            var err = body.error || JSON.stringify(body);
+            errMsg = error.status + " - " + (error.statusText || '') + " " + err;
+        }
+        else {
+            errMsg = error.message ? error.message : error.toString();
+        }
         console.error(errMsg);
         return Observable_1.Observable.throw(errMsg);
     };
-    RegisterService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
-    ], RegisterService);
     return RegisterService;
 }());
+RegisterService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http])
+], RegisterService);
 exports.RegisterService = RegisterService;
 //# sourceMappingURL=register.service.js.map
