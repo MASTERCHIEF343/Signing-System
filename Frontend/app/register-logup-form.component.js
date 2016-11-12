@@ -18,13 +18,15 @@ var register_1 = require("./register");
 //Providers
 var register_service_1 = require("./register.service");
 var core_2 = require("angular2-cookie/core");
+var auth_service_1 = require("./auth.service");
 var Registerlogupfrom = (function () {
-    function Registerlogupfrom(http, router, fb, rgservice, _cookieService) {
+    function Registerlogupfrom(http, router, fb, rgservice, _cookieService, authService) {
         this.http = http;
         this.router = router;
         this.fb = fb;
         this.rgservice = rgservice;
         this._cookieService = _cookieService;
+        this.authService = authService;
         this.title = '注册';
         this.data = new register_1.Register('', '', '', '');
         this.active = true;
@@ -103,13 +105,23 @@ var Registerlogupfrom = (function () {
         this.rgservice.addRegister(this.data).subscribe(function (res) { return _this.checkResponse(res); }, function (err) { return _this.errorMsgs.push(err); });
     };
     Registerlogupfrom.prototype.checkResponse = function (res) {
+        var _this = this;
         if (res.error) {
             this.errors = true;
             this.errs = res.error;
         }
         else if (res.id) {
-            // this.setCookie("user", {"id": res.id.id, "name":this.data.name, "passwd":this.data.passwd});
-            this.router.navigate(['/member']);
+            this.setCookie("u", { "id": res.id.id, "name": this.data.name, "passwd": this.data.passwd });
+            this.authService.login().subscribe(function () {
+                if (_this.authService.isLoggedIn) {
+                    var redirect = _this.authService.redirectUrl ? _this.authService.redirectUrl : '/member';
+                    // Redirect the user
+                    _this.router.navigate([redirect]);
+                }
+                else {
+                    _this.errs.push("未知的错误，请联系客服");
+                }
+            });
         }
         else {
             this.errorMsgs.push("Unknown error.");
@@ -132,7 +144,8 @@ Registerlogupfrom = __decorate([
         router_1.Router,
         forms_1.FormBuilder,
         register_service_1.RegisterService,
-        core_2.CookieService])
+        core_2.CookieService,
+        auth_service_1.AuthService])
 ], Registerlogupfrom);
 exports.Registerlogupfrom = Registerlogupfrom;
 //# sourceMappingURL=register-logup-form.component.js.map

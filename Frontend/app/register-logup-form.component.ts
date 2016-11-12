@@ -10,6 +10,7 @@ import { Register } from './register';
 //Providers
 import { RegisterService } from './register.service';
 import { CookieService } from 'angular2-cookie/core';
+import { AuthService } from './auth.service';
 
 @Component({
 	moduleId: module.id,
@@ -33,7 +34,8 @@ export class Registerlogupfrom  {
 		private router: Router,
 		private fb: FormBuilder,
 		private rgservice: RegisterService, 
-		private _cookieService:CookieService
+		private _cookieService:CookieService,
+		private authService: AuthService
 	) { }
 
 	ngOnInit(): void{
@@ -119,13 +121,23 @@ export class Registerlogupfrom  {
 		);
 	}
 
+
+
 	checkResponse(res){
 		if(res.error){
 			this.errors = true;	
 			this.errs = res.error;
 		}else if(res.id){	
-			// this.setCookie("user", {"id": res.id.id, "name":this.data.name, "passwd":this.data.passwd});
-			this.router.navigate(['/member']);
+			this.setCookie("u", {"id": res.id.id, "name":this.data.name, "passwd":this.data.passwd});
+			this.authService.login().subscribe(() => {
+				if (this.authService.isLoggedIn) {
+				let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/member';
+				// Redirect the user
+				this.router.navigate([redirect]);
+				}else{
+					this.errs.push("未知的错误，请联系客服");
+				}
+		    	});
 		}else{
 			this.errorMsgs.push("Unknown error.");
 		}

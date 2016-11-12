@@ -18,13 +18,15 @@ var user_1 = require("./user");
 //Providers
 var register_service_1 = require("./register.service");
 var core_2 = require("angular2-cookie/core");
+var auth_service_1 = require("./auth.service");
 var Registerloginfrom = (function () {
-    function Registerloginfrom(http, router, fb, rgservice, _cookieService) {
+    function Registerloginfrom(http, router, fb, rgservice, _cookieService, authService) {
         this.http = http;
         this.router = router;
         this.fb = fb;
         this.rgservice = rgservice;
         this._cookieService = _cookieService;
+        this.authService = authService;
         this.title = '登录';
         this.active = true;
         this.data = new user_1.User('', '');
@@ -93,7 +95,11 @@ var Registerloginfrom = (function () {
         this.data = this.loginForm.value;
         this.rgservice.checkRegister(this.data).subscribe(function (res) { return _this.checkResponse(res); }, function (err) { return _this.errorMsgs.push(err); });
     };
+    Registerloginfrom.prototype.setMessage = function () {
+        this.message = 'Logged' + (this.authService.isLoggedIn ? 'in' : 'out');
+    };
     Registerloginfrom.prototype.checkResponse = function (res) {
+        var _this = this;
         if (res.error) {
             this.errors = true;
             this.errs = res.error;
@@ -101,7 +107,17 @@ var Registerloginfrom = (function () {
         else if (res.id) {
             var params = { "id": res.id, "name": this.data.name, "passwd": this.data.passwd };
             this.setCookie("u", params);
-            this.router.navigate(['/member']);
+            this.authService.login().subscribe(function () {
+                _this.setMessage();
+                if (_this.authService.isLoggedIn) {
+                    var redirect = _this.authService.redirectUrl ? _this.authService.redirectUrl : '/member';
+                    // Redirect the user
+                    _this.router.navigate([redirect]);
+                }
+                else {
+                    _this.errs.push("未知的错误，请联系客服");
+                }
+            });
         }
         else {
             this.errorMsgs.push("Unknown error.");
@@ -124,7 +140,8 @@ Registerloginfrom = __decorate([
         router_1.Router,
         forms_1.FormBuilder,
         register_service_1.RegisterService,
-        core_2.CookieService])
+        core_2.CookieService,
+        auth_service_1.AuthService])
 ], Registerloginfrom);
 exports.Registerloginfrom = Registerloginfrom;
 //# sourceMappingURL=register-login-form.component.js.map

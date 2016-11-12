@@ -12,7 +12,7 @@ import { Registerlogupfrom } from './register-logup-form.component';
 import { UserComponent } from './userindex.component';
 import { PageNotFoundComponent } from './pagenotfound.component';
 //Providers
-import { routing, appRoutingProviders } from './app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 //Directive
 import { userMenuDirective } from './user-menu.directive';
@@ -24,7 +24,7 @@ import { userMenuDirective } from './user-menu.directive';
 		ReactiveFormsModule,
 		HttpModule,
 		JsonpModule,
-		routing,
+		AppRoutingModule
 	],
 	declarations: [
 		AppComponent,
@@ -35,7 +35,6 @@ import { userMenuDirective } from './user-menu.directive';
 		userMenuDirective
 	],
 	providers: [
-		appRoutingProviders,
 		CookieService,
 	],
 	bootstrap: [

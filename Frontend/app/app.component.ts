@@ -3,6 +3,7 @@ import { Component, Renderer, ElementRef, AfterContentChecked  } from '@angular/
 import { Router, ActivatedRoute, Params } from '@angular/router';
 //Providers
 import { CookieService } from 'angular2-cookie/core';
+import { AuthService } from './auth.service';
 
 @Component({
 	selector: 'my-app',
@@ -24,7 +25,7 @@ import { CookieService } from 'angular2-cookie/core';
 						<li *ngIf="!active" class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"> {{ username }} <span class="caret"></span></a>
 							<ul id="menu"  class="dropdown-menu" role="menu">
-								<li><a href="#">控制台</a></li>
+								<li><a>控制台</a></li>
 								<li><a (click)="logout()">退出</a></li>
 							</ul>
 						</li>
@@ -42,7 +43,8 @@ export class AppComponent {
 		private route: ActivatedRoute,
 		private router: Router,
 		private el: ElementRef,
-		private _CookieServers: CookieService
+		private _CookieServers: CookieService,
+		private authService: AuthService
 	){}
 
 	active = true;
@@ -70,6 +72,7 @@ export class AppComponent {
 	}
 
 	logout():void{
+		this.authService.logout();
 		this._CookieServers.removeAll();
 		this.router.navigate(['']);
 	}

@@ -39,7 +39,7 @@ AppModule = __decorate([
             forms_1.ReactiveFormsModule,
             http_1.HttpModule,
             http_1.JsonpModule,
-            app_routing_module_1.routing,
+            app_routing_module_1.AppRoutingModule
         ],
         declarations: [
             app_component_1.AppComponent,
@@ -50,7 +50,6 @@ AppModule = __decorate([
             user_menu_directive_1.userMenuDirective
         ],
         providers: [
-            app_routing_module_1.appRoutingProviders,
             cookies_service_1.CookieService,
         ],
         bootstrap: [

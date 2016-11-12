@@ -10,6 +10,7 @@ import { User } from './user';
 //Providers
 import { RegisterService } from './register.service';
 import { CookieService } from 'angular2-cookie/core';
+import { AuthService } from './auth.service';
 
 @Component({
 	moduleId: module.id,
@@ -32,8 +33,9 @@ export class Registerloginfrom {
 		private router: Router,
 		private fb: FormBuilder,
 		private rgservice: RegisterService, 
-		private _cookieService:CookieService
-	) { } 
+		private _cookieService:CookieService,
+		private authService: AuthService
+	) {} 
 
 	navTologup(): void{
 		this.router.navigate(['logup']);
@@ -109,6 +111,11 @@ export class Registerloginfrom {
 		);
 	}
 
+	message:string;	
+	setMessage(){
+		this.message = 'Logged' + (this.authService.isLoggedIn ? 'in' : 'out');
+	}
+
 	checkResponse(res){
 		if(res.error){
 			this.errors = true;	
@@ -116,7 +123,16 @@ export class Registerloginfrom {
 		}else if(res.id){			
 			let params = {"id": res.id, "name":this.data.name, "passwd":this.data.passwd};
 			this.setCookie("u", params);
-			this.router.navigate(['/member']);
+			this.authService.login().subscribe(() => {
+				this.setMessage();
+				if (this.authService.isLoggedIn) {
+				let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/member';
+				// Redirect the user
+				this.router.navigate([redirect]);
+				}else{
+					this.errs.push("未知的错误，请联系客服");
+				}
+		    	});
 		}else{
 			this.errorMsgs.push("Unknown error.");
 		}
