@@ -6,16 +6,16 @@ import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
 //Class
-import { Register } from './register';
+import { Register } from './class/register';
 //Providers
-import { RegisterService } from './register.service';
+import { RegisterService } from './services/register.service';
 import { CookieService } from 'angular2-cookie/core';
-import { AuthService } from './auth.service';
+import { AuthService } from './services/auth.service';
 
 @Component({
 	moduleId: module.id,
 	selector: 'ng-logup',
-	templateUrl: 'register-logup-form.html',
+	templateUrl: 'pages/register-logup-form.html',
 	styleUrls:['../forms.css'],
 	providers: [ RegisterService ]
 })

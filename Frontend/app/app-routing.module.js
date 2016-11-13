@@ -14,8 +14,8 @@ var register_login_form_component_1 = require("./register-login-form.component")
 var register_logup_form_component_1 = require("./register-logup-form.component");
 var userindex_component_1 = require("./userindex.component");
 var pagenotfound_component_1 = require("./pagenotfound.component");
-var auth_service_1 = require("./auth.service");
-var auth_guard_service_1 = require("./auth-guard.service");
+var auth_service_1 = require("./services/auth.service");
+var auth_guard_service_1 = require("./services/auth-guard.service");
 var AppRoutingModule = (function () {
     function AppRoutingModule() {
     }

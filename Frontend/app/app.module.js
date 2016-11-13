@@ -25,7 +25,7 @@ var pagenotfound_component_1 = require("./pagenotfound.component");
 var app_routing_module_1 = require("./app-routing.module");
 var cookies_service_1 = require("angular2-cookie/services/cookies.service");
 //Directive
-var user_menu_directive_1 = require("./user-menu.directive");
+var user_menu_directive_1 = require("./services/user-menu.directive");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -39,7 +39,7 @@ AppModule = __decorate([
             forms_1.ReactiveFormsModule,
             http_1.HttpModule,
             http_1.JsonpModule,
-            app_routing_module_1.AppRoutingModule
+            app_routing_module_1.AppRoutingModule,
         ],
         declarations: [
             app_component_1.AppComponent,

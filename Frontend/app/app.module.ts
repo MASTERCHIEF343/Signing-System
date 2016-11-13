@@ -14,8 +14,9 @@ import { PageNotFoundComponent } from './pagenotfound.component';
 //Providers
 import { AppRoutingModule } from './app-routing.module';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
+
 //Directive
-import { userMenuDirective } from './user-menu.directive';
+import { userMenuDirective } from './services/user-menu.directive';
 
 @NgModule({
 	imports: [
@@ -24,7 +25,7 @@ import { userMenuDirective } from './user-menu.directive';
 		ReactiveFormsModule,
 		HttpModule,
 		JsonpModule,
-		AppRoutingModule
+		AppRoutingModule,
 	],
 	declarations: [
 		AppComponent,

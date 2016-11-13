@@ -3,7 +3,7 @@ import { Component, Renderer, ElementRef, AfterContentChecked  } from '@angular/
 import { Router, ActivatedRoute, Params } from '@angular/router';
 //Providers
 import { CookieService } from 'angular2-cookie/core';
-import { AuthService } from './auth.service';
+import { AuthService } from './services/auth.service';
 
 @Component({
 	selector: 'my-app',
@@ -53,7 +53,7 @@ export class AppComponent {
 
 	ngAfterContentChecked(){
 		let dom = this.el.nativeElement;
-		if(dom.querySelector('#id') != undefined){
+		if(dom.querySelector('#id') != undefined || dom.querySelector('#id') != null){
 			this.active = false;
 			this.id = dom.querySelector('#id').innerHTML;
 			let user = JSON.parse(this._CookieServers.get('u'));

@@ -13,7 +13,7 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 //Providers
 var core_2 = require("angular2-cookie/core");
-var auth_service_1 = require("./auth.service");
+var auth_service_1 = require("./services/auth.service");
 var AppComponent = (function () {
     function AppComponent(route, router, el, _CookieServers, authService) {
         this.route = route;
@@ -27,7 +27,7 @@ var AppComponent = (function () {
     }
     AppComponent.prototype.ngAfterContentChecked = function () {
         var dom = this.el.nativeElement;
-        if (dom.querySelector('#id') != undefined) {
+        if (dom.querySelector('#id') != undefined || dom.querySelector('#id') != null) {
             this.active = false;
             this.id = dom.querySelector('#id').innerHTML;
             var user = JSON.parse(this._CookieServers.get('u'));

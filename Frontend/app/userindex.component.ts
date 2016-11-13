@@ -7,7 +7,7 @@ import { CookieService } from 'angular2-cookie/core';
 @Component({
 	moduleId: module.id,
 	selector: 'ng-main-content',
-	templateUrl: 'user-index.html',
+	templateUrl: 'pages/user-index.html',
 	styleUrls:['index.css'],
 })
 

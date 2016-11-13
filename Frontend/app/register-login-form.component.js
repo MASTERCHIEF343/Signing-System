@@ -14,11 +14,11 @@ var forms_1 = require("@angular/forms");
 var http_1 = require("@angular/http");
 var router_1 = require("@angular/router");
 //Class
-var user_1 = require("./user");
+var user_1 = require("./class/user");
 //Providers
-var register_service_1 = require("./register.service");
+var register_service_1 = require("./services/register.service");
 var core_2 = require("angular2-cookie/core");
-var auth_service_1 = require("./auth.service");
+var auth_service_1 = require("./services/auth.service");
 var Registerloginfrom = (function () {
     function Registerloginfrom(http, router, fb, rgservice, _cookieService, authService) {
         this.http = http;
@@ -132,7 +132,7 @@ Registerloginfrom = __decorate([
     core_1.Component({
         moduleId: module.id,
         selector: 'ng-login',
-        templateUrl: 'register-login-form.html',
+        templateUrl: 'pages/register-login-form.html',
         styleUrls: ['../forms.css'],
         providers: [register_service_1.RegisterService]
     }),

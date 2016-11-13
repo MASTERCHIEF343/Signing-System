@@ -35,7 +35,7 @@ UserComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
         selector: 'ng-main-content',
-        templateUrl: 'user-index.html',
+        templateUrl: 'pages/user-index.html',
         styleUrls: ['index.css'],
     }),
     __metadata("design:paramtypes", [router_1.ActivatedRoute,

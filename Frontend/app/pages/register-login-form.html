@@ -1,0 +1,39 @@
+<header class="header background-sky">
+	<h2 class="header-title">{{title}}</h2>
+</header>
+<ul>
+	<li *ngFor="let rs of result" style="list-style-type: none;">
+		{{ rs }}
+	</li>
+</ul>
+<div class="container">
+	<div class="col-md-4"></div>
+	<div class="col-md-8 container">
+		<div class="container" style="width: 80%">
+			<form [formGroup]="loginForm"  *ngIf="active"  (ngSubmit)="onSubmit()">
+				<div class="form-group">
+					<label for="name">姓名</label>
+					<input type="text" id="name" class="form-control"
+					formControlName="name" required >
+					<div *ngIf="formErrors.name" class="alert alert-danger">
+						{{ formErrors.name }}
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="passwd">密码</label>
+					<input type="passwd" class="form-control" required formControlName="passwd">
+					<div *ngIf="formErrors.passwd" class="alert alert-danger">
+						{{ formErrors.passwd }}
+					</div>
+				</div>
+				<div *ngIf="errors" class="alert alert-warning" role="alert">
+					{{ errs }}
+				</div>
+				<div>
+					<a (click)="navTologup()" class="active" style="font-size: 12px;text-decoration: none;">还未注册?</a>
+					<button type="submit" class="btn"  [class.btn-success]="loginForm.valid" [disabled]="!loginForm.valid">登录</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
