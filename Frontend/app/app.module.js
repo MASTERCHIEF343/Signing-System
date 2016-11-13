@@ -20,6 +20,7 @@ var app_component_1 = require("./app.component");
 var register_login_form_component_1 = require("./register-login-form.component");
 var register_logup_form_component_1 = require("./register-logup-form.component");
 var userindex_component_1 = require("./userindex.component");
+var control_component_1 = require("./control.component");
 var pagenotfound_component_1 = require("./pagenotfound.component");
 //Providers
 var app_routing_module_1 = require("./app-routing.module");
@@ -46,6 +47,7 @@ AppModule = __decorate([
             register_login_form_component_1.Registerloginfrom,
             register_logup_form_component_1.Registerlogupfrom,
             userindex_component_1.UserComponent,
+            control_component_1.ControlComponent,
             pagenotfound_component_1.PageNotFoundComponent,
             user_menu_directive_1.userMenuDirective
         ],

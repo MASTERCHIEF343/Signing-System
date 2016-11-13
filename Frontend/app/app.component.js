@@ -38,6 +38,13 @@ var AppComponent = (function () {
         }
         ;
     };
+    AppComponent.prototype.getCookie = function () {
+        var data = this._CookieServers.getAll();
+        return data;
+    };
+    AppComponent.prototype.goToControl = function () {
+        this.router.navigate(['/control']);
+    };
     AppComponent.prototype.backToHome = function () {
         this.router.navigate(['']);
     };
@@ -54,8 +61,8 @@ var AppComponent = (function () {
 AppComponent = __decorate([
     core_1.Component({
         selector: 'my-app',
-        template: "\n\t\t<nav class=\"navbar\" role=\"navigation\">\n\t\t\t<div class=\"container-fluid\">\n\t\t\t\t<div class=\"navbar-header\">\n\t\t\t\t\t<a class=\"navbar-brand\" (click)=\"backToHome()\">IGN SYSTEM</a>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n\t\t\t\t\t<ul class=\"nav navbar-nav\">\n\t\t\t\t\t\t<li><a href=\"#\">\u7279\u6027</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">\u6587\u6863</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">\u901A\u4FE1</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">\u5173\u4E8E</a></li>\n\t\t\t\t\t</ul>\n\t\t\t\t\t<ul user-menu class=\"nav navbar-nav navbar-right\">\n\t\t\t\t\t\t<li *ngIf=\"active\" #active><a (click)=\"signIn()\">\u7ACB\u5373\u5F00\u59CB\uFF01</a></li>\n\t\t\t\t\t\t<li *ngIf=\"!active\" class=\"dropdown\">\n\t\t\t\t\t\t\t<a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"> {{ username }} <span class=\"caret\"></span></a>\n\t\t\t\t\t\t\t<ul id=\"menu\"  class=\"dropdown-menu\" role=\"menu\">\n\t\t\t\t\t\t\t\t<li><a>\u63A7\u5236\u53F0</a></li>\n\t\t\t\t\t\t\t\t<li><a (click)=\"logout()\">\u9000\u51FA</a></li>\n\t\t\t\t\t\t\t</ul>\n\t\t\t\t\t\t</li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</nav>\n\t\t<router-outlet></router-outlet>\n\t",
-        styleUrls: ['../style.css'],
+        template: "\n\t\t<nav class=\"navbar\" role=\"navigation\">\n\t\t\t<div class=\"container-fluid\">\n\t\t\t\t<div class=\"navbar-header\">\n\t\t\t\t\t<a class=\"navbar-brand\" (click)=\"backToHome()\">IGN SYSTEM</a>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n\t\t\t\t\t<ul class=\"nav navbar-nav\">\n\t\t\t\t\t\t<li><a href=\"#\">\u7279\u6027</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">\u6587\u6863</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">\u901A\u4FE1</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">\u5173\u4E8E</a></li>\n\t\t\t\t\t</ul>\n\t\t\t\t\t<ul user-menu class=\"nav navbar-nav navbar-right\">\n\t\t\t\t\t\t<li *ngIf=\"active\" #active><a (click)=\"signIn()\">\u7ACB\u5373\u5F00\u59CB\uFF01</a></li>\n\t\t\t\t\t\t<li *ngIf=\"!active\" class=\"dropdown\">\n\t\t\t\t\t\t\t<a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"> {{ username }} <span class=\"caret\"></span></a>\n\t\t\t\t\t\t\t<ul id=\"menu\"  class=\"dropdown-menu\" role=\"menu\">\n\t\t\t\t\t\t\t\t<li><a (click)=\"goToControl()\">\u63A7\u5236\u53F0</a></li>\n\t\t\t\t\t\t\t\t<li><a (click)=\"logout()\">\u9000\u51FA</a></li>\n\t\t\t\t\t\t\t</ul>\n\t\t\t\t\t\t</li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</nav>\n\t\t<router-outlet></router-outlet>\n\t",
+        styleUrls: ['../css/style.css'],
     }),
     __metadata("design:paramtypes", [router_1.ActivatedRoute,
         router_1.Router,

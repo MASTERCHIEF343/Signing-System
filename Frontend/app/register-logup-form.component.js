@@ -137,7 +137,7 @@ Registerlogupfrom = __decorate([
         moduleId: module.id,
         selector: 'ng-logup',
         templateUrl: 'pages/register-logup-form.html',
-        styleUrls: ['../forms.css'],
+        styleUrls: ['../css/forms.css'],
         providers: [register_service_1.RegisterService]
     }),
     __metadata("design:paramtypes", [http_1.Http,

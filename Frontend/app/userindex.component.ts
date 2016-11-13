@@ -8,14 +8,14 @@ import { CookieService } from 'angular2-cookie/core';
 	moduleId: module.id,
 	selector: 'ng-main-content',
 	templateUrl: 'pages/user-index.html',
-	styleUrls:['index.css'],
+	styleUrls:['../css/user-index.css'],
 })
 
 export class UserComponent{
 	constructor(
 		private route: ActivatedRoute,
 	  	private router: Router,
-	  	private _CookieServers: CookieService
+	  	private _CookieServices: CookieService
 	){}
 
 	id = [];
@@ -27,7 +27,7 @@ export class UserComponent{
 	}
 
 	getCookie(){
-		let data = this._CookieServers.getAll();
+		let data = this._CookieServices.getAll();
 		return data;
 	}
 }

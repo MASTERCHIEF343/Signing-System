@@ -6,6 +6,7 @@ import { Registerloginfrom } from './register-login-form.component';
 import { Registerlogupfrom } from './register-logup-form.component';
 import { UserComponent } from './userindex.component';
 import { PageNotFoundComponent } from './pagenotfound.component';
+import { ControlComponent } from './control.component';
 
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
@@ -29,6 +30,11 @@ import { AuthGuard } from './services/auth-guard.service';
 			{
 				path: 'member',
 				component: UserComponent,
+				canActivate: [AuthGuard]
+			},
+			{
+				path:'control',
+				component: ControlComponent,
 				canActivate: [AuthGuard]
 			},
 			{

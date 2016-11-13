@@ -8,39 +8,33 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-//Core
 var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
 //Providers
 var core_2 = require("angular2-cookie/core");
-var UserComponent = (function () {
-    function UserComponent(route, router, _CookieServices) {
-        this.route = route;
-        this.router = router;
+var ControlComponent = (function () {
+    function ControlComponent(_CookieServices) {
         this._CookieServices = _CookieServices;
         this.id = [];
     }
-    UserComponent.prototype.ngOnInit = function () {
+    ControlComponent.prototype.ngOnInit = function () {
         var data = this.getCookie();
         var user = JSON.parse(data['u']);
         this.id = user.id;
     };
-    UserComponent.prototype.getCookie = function () {
+    ControlComponent.prototype.getCookie = function () {
         var data = this._CookieServices.getAll();
         return data;
     };
-    return UserComponent;
+    return ControlComponent;
 }());
-UserComponent = __decorate([
+ControlComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
-        selector: 'ng-main-content',
-        templateUrl: 'pages/user-index.html',
-        styleUrls: ['../css/user-index.css'],
+        selector: 'ng-control',
+        templateUrl: 'pages/control-page.html',
+        styleUrls: ['../css/control-page.css'],
     }),
-    __metadata("design:paramtypes", [router_1.ActivatedRoute,
-        router_1.Router,
-        core_2.CookieService])
-], UserComponent);
-exports.UserComponent = UserComponent;
-//# sourceMappingURL=userindex.component.js.map
+    __metadata("design:paramtypes", [core_2.CookieService])
+], ControlComponent);
+exports.ControlComponent = ControlComponent;
+//# sourceMappingURL=control.component.js.map

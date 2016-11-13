@@ -1,0 +1,28 @@
+#control-content{
+	position: relative;
+}
+
+/*
+side-menu-list
+*/
+.side-menu > .side-menu-list > ul{
+	padding: 0px;
+	width: 160px;
+}
+.side-menu > .side-menu-list > ul >li {
+	list-style-type: none;
+	width: inherit;
+}
+.side-menu > .side-menu-list >ul >li a{
+	display: block;
+	width: inherit;
+	text-decoration: none;
+	height: 61px;
+	padding: 12px 20px;
+	text-align: right;
+	color: #777;
+	border-bottom: 1px solid #333;
+}
+.side-menu > .side-menu-list >ul >li a:active{
+	text-decoration: none;
+}

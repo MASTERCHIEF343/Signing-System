@@ -16,7 +16,7 @@ import { AuthService } from './services/auth.service';
 	moduleId: module.id,
 	selector: 'ng-login',
 	templateUrl: 	'pages/register-login-form.html',
-	styleUrls:['../forms.css'],
+	styleUrls:['../css/forms.css'],
 	providers: [ RegisterService ]
 })
 

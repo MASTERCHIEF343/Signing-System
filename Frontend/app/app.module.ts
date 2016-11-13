@@ -10,6 +10,7 @@ import { AppComponent }   from './app.component';
 import { Registerloginfrom } from './register-login-form.component';
 import { Registerlogupfrom } from './register-logup-form.component';
 import { UserComponent } from './userindex.component';
+import { ControlComponent } from './control.component';
 import { PageNotFoundComponent } from './pagenotfound.component';
 //Providers
 import { AppRoutingModule } from './app-routing.module';
@@ -32,6 +33,7 @@ import { userMenuDirective } from './services/user-menu.directive';
 		Registerloginfrom,
 		Registerlogupfrom,
 		UserComponent,
+		ControlComponent,
 		PageNotFoundComponent,
 		userMenuDirective
 	],

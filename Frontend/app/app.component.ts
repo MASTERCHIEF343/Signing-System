@@ -25,7 +25,7 @@ import { AuthService } from './services/auth.service';
 						<li *ngIf="!active" class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"> {{ username }} <span class="caret"></span></a>
 							<ul id="menu"  class="dropdown-menu" role="menu">
-								<li><a>控制台</a></li>
+								<li><a (click)="goToControl()">控制台</a></li>
 								<li><a (click)="logout()">退出</a></li>
 							</ul>
 						</li>
@@ -35,7 +35,7 @@ import { AuthService } from './services/auth.service';
 		</nav>
 		<router-outlet></router-outlet>
 	`,
-	styleUrls:['../style.css'],
+	styleUrls:['../css/style.css'],
 })
 
 export class AppComponent {
@@ -61,6 +61,15 @@ export class AppComponent {
 		}else{
 			this.active = true;
 		};
+	}
+
+	getCookie(){
+		let data = this._CookieServers.getAll();
+		return data;
+	}
+
+	goToControl():void{
+		this.router.navigate(['/control']);
 	}
 
 	backToHome():void{

@@ -14,6 +14,7 @@ var register_login_form_component_1 = require("./register-login-form.component")
 var register_logup_form_component_1 = require("./register-logup-form.component");
 var userindex_component_1 = require("./userindex.component");
 var pagenotfound_component_1 = require("./pagenotfound.component");
+var control_component_1 = require("./control.component");
 var auth_service_1 = require("./services/auth.service");
 var auth_guard_service_1 = require("./services/auth-guard.service");
 var AppRoutingModule = (function () {
@@ -41,6 +42,11 @@ AppRoutingModule = __decorate([
                 {
                     path: 'member',
                     component: userindex_component_1.UserComponent,
+                    canActivate: [auth_guard_service_1.AuthGuard]
+                },
+                {
+                    path: 'control',
+                    component: control_component_1.ControlComponent,
                     canActivate: [auth_guard_service_1.AuthGuard]
                 },
                 {
