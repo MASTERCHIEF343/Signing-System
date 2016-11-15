@@ -25,6 +25,7 @@ import { AuthService } from './services/auth.service';
 						<li *ngIf="!active" class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"> {{ username }} <span class="caret"></span></a>
 							<ul id="menu"  class="dropdown-menu" role="menu">
+								<li><a>设置</a></li>
 								<li><a (click)="goToControl()">控制台</a></li>
 								<li><a (click)="logout()">退出</a></li>
 							</ul>

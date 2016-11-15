@@ -15,8 +15,11 @@ a{
 	padding-right: 0px;
 	width: 100%;
 }
-.navbar>*{
-	height: inherit;
+.navbar{
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.24);
+	position: relative;
+	top: 0px;
+	left: 0px;
 }
 .nav{
 	height: 56px;
