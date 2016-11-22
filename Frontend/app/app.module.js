@@ -27,6 +27,7 @@ var app_routing_module_1 = require("./app-routing.module");
 var cookies_service_1 = require("angular2-cookie/services/cookies.service");
 //Directive
 var user_menu_directive_1 = require("./services/user-menu.directive");
+var primeng_1 = require("primeng/primeng");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -41,6 +42,7 @@ AppModule = __decorate([
             http_1.HttpModule,
             http_1.JsonpModule,
             app_routing_module_1.AppRoutingModule,
+            primeng_1.GrowlModule,
         ],
         declarations: [
             app_component_1.AppComponent,
@@ -49,7 +51,7 @@ AppModule = __decorate([
             userindex_component_1.UserComponent,
             control_component_1.ControlComponent,
             pagenotfound_component_1.PageNotFoundComponent,
-            user_menu_directive_1.userMenuDirective
+            user_menu_directive_1.userMenuDirective,
         ],
         providers: [
             cookies_service_1.CookieService,

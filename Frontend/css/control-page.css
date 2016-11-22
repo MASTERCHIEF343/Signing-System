@@ -1,5 +1,6 @@
 *{
 	margin: 0px;
+	padding: 0px; 
 }
 #control-content{
 	height: 100%;
@@ -80,4 +81,26 @@ side-menu-list
 	border-left: 2px solid #333;
 	border-bottom: 2px solid #333;
 	transform: rotate(-45deg);
+}
+/*
+header-bg
+*/
+.header{
+	padding: 48px 48px 32px 48px;
+	position: relative;
+	top: 0px;
+	height: 168px;
+}
+.background-sky{
+	background-color: #1976D2;
+	background: -webkit-linear-gradient(305deg,#0D47A1,#42A5F5);
+	background: linear-gradient(145deg,#0D47A1,#42A5F5);
+}
+.header-title{	
+	display: inline-block;
+	margin: 0px 8px 0px 0px;	
+	font-size: 28px;
+	font-weight: 400;
+	line-height: 48px;
+	color: white;
 }

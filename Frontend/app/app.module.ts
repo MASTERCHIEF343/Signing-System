@@ -19,6 +19,8 @@ import { CookieService } from 'angular2-cookie/services/cookies.service';
 //Directive
 import { userMenuDirective } from './services/user-menu.directive';
 
+import { GrowlModule } from 'primeng/primeng';
+
 @NgModule({
 	imports: [
 		BrowserModule,
@@ -27,6 +29,7 @@ import { userMenuDirective } from './services/user-menu.directive';
 		HttpModule,
 		JsonpModule,
 		AppRoutingModule,
+		GrowlModule,
 	],
 	declarations: [
 		AppComponent,
@@ -35,7 +38,7 @@ import { userMenuDirective } from './services/user-menu.directive';
 		UserComponent,
 		ControlComponent,
 		PageNotFoundComponent,
-		userMenuDirective
+		userMenuDirective,
 	],
 	providers: [
 		CookieService,

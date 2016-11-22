@@ -10,20 +10,20 @@
 				<div class="side-menu-list">
 					<ul>
 						<li>
-							<a class="actived">
+							<a class="actived" (click)="MonthTimes()">
 								<span class="glyphicon glyphicon-list-alt"></span>
 								<span>月活跃度</span>
 							</a>
 						</li>
 						<li>
-							<a>
+							<a (click)="FileSystems()">
 								<span class="glyphicon glyphicon-folder-open"></span>
 								<span>文件存储</span>
 								<i class="fa fa-arrows"></i>
 							</a>
 						</li>
 						<li>
-							<a>
+							<a (click)="Messages()">
 								<span class="glyphicon glyphicon-envelope"></span>
 								<span>站内信</span>
 							</a>
@@ -32,6 +32,30 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-10">2</div>
+		<div class="col-md-10">
+			<div style="display: none;" #monthtimes>
+				<header class="header background-sky">
+					<h2 class="header-title">月活跃度</h2>
+				</header>
+				<div style="top: 500px;">
+					<p-growl [value]="msgs" sticky="sticky"></p-growl>
+
+					<div>
+						<button type="button" pButton (click)="Success()" label="Success">Success</button >
+					    <button type="button" pButton (click)="clear()" icon="fa-close" style="float:right" label="Clear">Clear</button>
+					</div>
+				</div>
+			</div>
+			<div style="display: none;" #filesystems>
+				<header class="header background-sky">
+					<h2 class="header-title">文件存储</h2>
+				</header>
+			</div>
+			<div style="display: none;" #messages>
+				<header class="header background-sky">
+					<h2 class="header-title">站内信</h2>
+				</header>
+			</div>
+		</div>
 	</div>
 </div>
