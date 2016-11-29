@@ -38,11 +38,9 @@
 					<h2 class="header-title">月活跃度</h2>
 				</header>
 				<div style="top: 500px;">
-					<p-growl [value]="msgs" sticky="sticky"></p-growl>
-
+					<p-growl [value]="msgs" [life]="2500"></p-growl>
 					<div>
-						<button type="button" pButton (click)="Success()" label="Success">Success</button >
-					    <button type="button" pButton (click)="clear()" icon="fa-close" style="float:right" label="Clear">Clear</button>
+						<button type="button" pButton (click)="Success()" id="isDisabled" label="Success">Success</button >
 					</div>
 				</div>
 			</div>

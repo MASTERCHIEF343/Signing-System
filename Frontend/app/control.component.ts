@@ -2,8 +2,9 @@ import { Component, OnInit, Renderer, ElementRef, ViewChild, AfterViewInit } fro
 //Providers
 import { CookieService } from 'angular2-cookie/core';
 import { ViewContainerRef } from '@angular/core';
-
 import { Message } from 'primeng/primeng';
+//Class
+import { Timer } from './class/date-time';
 
 @Component({
 	moduleId: module.id,
@@ -15,14 +16,17 @@ import { Message } from 'primeng/primeng';
 export class ControlComponent{
 	msgs: Message[] = [];
 
-	   Success(){
-	   	this.msgs = [];
-	       this.msgs.push({severity:'success', summary:'Info Message', detail:'PrimeNG rocks'});
-	   }
+	Success(){
+		this.renderer.setElementAttribute(this.el.nativeElement.querySelector("#isDisabled"), 'disabled', 'disabled');
+		this.msgs = [];
+		let today = new Date().toLocaleString();
+		let timer = new Timer(today);
+		this.msgs.push({severity:'success', summary:'Info Message', detail:'PrimeNG rocks'});
+	}
 
-	   clear() {
-	       this.msgs = [];
-	   }
+	clear() {
+		this.msgs = [];
+	}
 
 	@ViewChild('monthtimes') month: ElementRef;
 	@ViewChild('filesystems') file: ElementRef;

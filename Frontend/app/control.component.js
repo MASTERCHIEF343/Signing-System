@@ -11,6 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 //Providers
 var core_2 = require("angular2-cookie/core");
+//Class
+var date_time_1 = require("./class/date-time");
 var ControlComponent = (function () {
     function ControlComponent(_CookieServices, el, renderer) {
         this._CookieServices = _CookieServices;
@@ -20,7 +22,10 @@ var ControlComponent = (function () {
         this.id = [];
     }
     ControlComponent.prototype.Success = function () {
+        this.renderer.setElementAttribute(this.el.nativeElement.querySelector("#isDisabled"), 'disabled', 'disabled');
         this.msgs = [];
+        var today = new Date().toLocaleString();
+        var timer = new date_time_1.Timer(today);
         this.msgs.push({ severity: 'success', summary: 'Info Message', detail: 'PrimeNG rocks' });
     };
     ControlComponent.prototype.clear = function () {

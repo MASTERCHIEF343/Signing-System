@@ -40,6 +40,9 @@ side-menu-search
 /*
 side-menu-list
 */
+.fa-arrows:before {
+	content: none;
+}
 .side-menu-list{
 	width: 100%;
 }
