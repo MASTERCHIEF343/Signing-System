@@ -1,7 +1,8 @@
 "use strict";
 var Timer = (function () {
-    function Timer(dateimte) {
-        this.dateimte = dateimte;
+    function Timer(userid, signtime) {
+        this.userid = userid;
+        this.signtime = signtime;
     }
     return Timer;
 }());

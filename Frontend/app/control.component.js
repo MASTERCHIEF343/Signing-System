@@ -9,23 +9,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var http_1 = require("@angular/http");
 //Providers
 var core_2 = require("angular2-cookie/core");
+var signature_service_1 = require("./services/signature.service");
 //Class
 var date_time_1 = require("./class/date-time");
 var ControlComponent = (function () {
-    function ControlComponent(_CookieServices, el, renderer) {
+    function ControlComponent(_CookieServices, el, renderer, http, _signatureService) {
         this._CookieServices = _CookieServices;
         this.el = el;
         this.renderer = renderer;
+        this.http = http;
+        this._signatureService = _signatureService;
         this.msgs = [];
-        this.id = [];
     }
     ControlComponent.prototype.Success = function () {
         this.renderer.setElementAttribute(this.el.nativeElement.querySelector("#isDisabled"), 'disabled', 'disabled');
         this.msgs = [];
         var today = new Date().toLocaleString();
-        var timer = new date_time_1.Timer(today);
+        var timer = new date_time_1.Timer(this.id, today);
+        this._signatureService.timerSign(timer).subscribe();
         this.msgs.push({ severity: 'success', summary: 'Info Message', detail: 'PrimeNG rocks' });
     };
     ControlComponent.prototype.clear = function () {
@@ -34,8 +38,9 @@ var ControlComponent = (function () {
     ControlComponent.prototype.ngOnInit = function () {
         var data = this.getCookie();
         var user = JSON.parse(data['u']);
-        this.id = user.id;
+        this.id = Number(user.id);
         this.renderer.setElementStyle(this.month.nativeElement, 'display', 'block');
+        // this._signatureService.checkSign().subscribe()
     };
     ControlComponent.prototype.getCookie = function () {
         var data = this._CookieServices.getAll();
@@ -76,10 +81,13 @@ ControlComponent = __decorate([
         selector: 'ng-control',
         templateUrl: 'pages/control-page.html',
         styleUrls: ['../css/control-page.css'],
+        providers: [signature_service_1.SignatureService]
     }),
     __metadata("design:paramtypes", [core_2.CookieService,
         core_1.ElementRef,
-        core_1.Renderer])
+        core_1.Renderer,
+        http_1.Http,
+        signature_service_1.SignatureService])
 ], ControlComponent);
 exports.ControlComponent = ControlComponent;
 //# sourceMappingURL=control.component.js.map

@@ -3,34 +3,42 @@ import { Injectable } from '@angular/core';
 import { Http, Response} from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 //Class
-import { Register } from '../class/register'; 
-import { User } from '../class/user';
+import { Timer } from '../class/date-time';
 //RxJS
 import '../rxjs-operators';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 
-export class RegisterService {
-	//backEnd Urls
-	private logupUrl = 'http://localhost/signing-system/Backend/logup';
-	private loginUrl = 'http://localhost/signing-system/Backend/login';
+export class SignatureService{
+	//Urls
+	private dateTimer = 'http://localhost/signing-system/Backend/signature';
+	private checkurl = 'http://localhost/signing-system/Backend/checksign';
 
-	constructor(private http:Http) {}
-	//add register
-	addRegister(data): Observable<Register>{
+	//constructor
+	constructor(
+		private http: Http,
+	){}
+	
+	//check signature
+	checkSign():Observable<Timer>{
+		return this.http.get(this.checkurl).map(this.extractData).catch(this.handleError);
+	}
+
+	//transform to json
+	private extractData(res: Response){
+		let data = res.json() || { };
+		return data;
+	}
+
+	//input signature
+	timerSign(data): Observable<Timer>{
 		let body = JSON.stringify({data});
 		let headers = new Headers({ 'Content-Type': 'application/json' });
 		let options = new RequestOptions({ headers: headers });
-		return this.http.post(this.logupUrl, body, options).map(res => res.json()).catch(this.handleError);
+		return this.http.post(this.dateTimer, body, options).map(res => ' ').catch(this.handleError);
 	}
-	//check register
-	checkRegister(data): Observable<User>{
-		let body = JSON.stringify({data});
-		let headers = new Headers({ 'Content-Type': 'application/json' });
-		let options = new RequestOptions({ headers: headers });
-		return this.http.post(this.loginUrl, body, options).map(res => res.json()).catch(this.handleError);
-	}
+
 	//Errors absolutes
 	private handleError (error: Response | any) {
 	// In a real world app, we might use a remote logging infrastructure
@@ -46,4 +54,3 @@ export class RegisterService {
 		return Observable.throw(errMsg);
 	}
 }
-

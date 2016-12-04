@@ -15,29 +15,32 @@ var http_2 = require("@angular/http");
 //RxJS
 require("../rxjs-operators");
 var Observable_1 = require("rxjs/Observable");
-var RegisterService = (function () {
-    function RegisterService(http) {
+var SignatureService = (function () {
+    //constructor
+    function SignatureService(http) {
         this.http = http;
-        //backEnd Urls
-        this.logupUrl = 'http://localhost/signing-system/Backend/logup';
-        this.loginUrl = 'http://localhost/signing-system/Backend/login';
+        //Urls
+        this.dateTimer = 'http://localhost/signing-system/Backend/signature';
+        this.checkurl = 'http://localhost/signing-system/Backend/checksign';
     }
-    //add register
-    RegisterService.prototype.addRegister = function (data) {
-        var body = JSON.stringify({ data: data });
-        var headers = new http_2.Headers({ 'Content-Type': 'application/json' });
-        var options = new http_2.RequestOptions({ headers: headers });
-        return this.http.post(this.logupUrl, body, options).map(function (res) { return res.json(); }).catch(this.handleError);
+    //check signature
+    SignatureService.prototype.checkSign = function () {
+        return this.http.get(this.checkurl).map(this.extractData).catch(this.handleError);
     };
-    //check register
-    RegisterService.prototype.checkRegister = function (data) {
+    //transform to json
+    SignatureService.prototype.extractData = function (res) {
+        var data = res.json() || {};
+        return data;
+    };
+    //input signature
+    SignatureService.prototype.timerSign = function (data) {
         var body = JSON.stringify({ data: data });
         var headers = new http_2.Headers({ 'Content-Type': 'application/json' });
         var options = new http_2.RequestOptions({ headers: headers });
-        return this.http.post(this.loginUrl, body, options).map(function (res) { return res.json(); }).catch(this.handleError);
+        return this.http.post(this.dateTimer, body, options).map(function (res) { return ' '; }).catch(this.handleError);
     };
     //Errors absolutes
-    RegisterService.prototype.handleError = function (error) {
+    SignatureService.prototype.handleError = function (error) {
         // In a real world app, we might use a remote logging infrastructure
         var errMsg;
         if (error instanceof http_1.Response) {
@@ -51,11 +54,11 @@ var RegisterService = (function () {
         console.error(errMsg);
         return Observable_1.Observable.throw(errMsg);
     };
-    return RegisterService;
+    return SignatureService;
 }());
-RegisterService = __decorate([
+SignatureService = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [http_1.Http])
-], RegisterService);
-exports.RegisterService = RegisterService;
-//# sourceMappingURL=register.service.js.map
+], SignatureService);
+exports.SignatureService = SignatureService;
+//# sourceMappingURL=signature.service.js.map

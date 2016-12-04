@@ -1,5 +1,6 @@
 export class Timer{
 	constructor(
-		public dateimte: string
+		public userid: number,
+		public signtime: string
 	){}
 }
