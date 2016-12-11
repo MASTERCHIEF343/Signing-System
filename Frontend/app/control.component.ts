@@ -29,10 +29,11 @@ export class ControlComponent{
 	msgs: Message[] = [];
 
 	Success(){
-		this.renderer.setElementAttribute(this.el.nativeElement.querySelector("#isDisabled"), 'disabled', 'disabled');
+		// this.renderer.setElementAttribute(this.el.nativeElement.querySelector("#isDisabled"), 'disabled', 'disabled');
 		this.msgs = [];
 		let today = new Date().toLocaleString();
 		let timer = new Timer(this.id, today);
+		console.log(this.id);
 		this._signatureService.timerSign(timer).subscribe();
 		this.msgs.push({severity:'success', summary:'Info Message', detail:'PrimeNG rocks'});
 	}

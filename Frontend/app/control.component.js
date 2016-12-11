@@ -25,10 +25,11 @@ var ControlComponent = (function () {
         this.msgs = [];
     }
     ControlComponent.prototype.Success = function () {
-        this.renderer.setElementAttribute(this.el.nativeElement.querySelector("#isDisabled"), 'disabled', 'disabled');
+        // this.renderer.setElementAttribute(this.el.nativeElement.querySelector("#isDisabled"), 'disabled', 'disabled');
         this.msgs = [];
         var today = new Date().toLocaleString();
         var timer = new date_time_1.Timer(this.id, today);
+        console.log(this.id);
         this._signatureService.timerSign(timer).subscribe();
         this.msgs.push({ severity: 'success', summary: 'Info Message', detail: 'PrimeNG rocks' });
     };
