@@ -9,10 +9,18 @@ class Sign_Model extends CI_Model {
 		$this->load->database();
 	}
 
-	public function checkSign($id)
+	public function checkSignStatus($userid)
 	{
-		$userid = $id;
-		$signstatus = $this->db->query('select signstatus from registration where userid = "'.$userid.'" ');
+		$uid = $userid;
+		$result = $this->db->query('select signstatus from registration where userid="'.$uid.'" ')->row();
+		return $result->signstatus;
+	}
+
+	public function getId($userid)
+	{
+		$uid = $userid;
+		$result = $this->db->query('select id from registration where userid="'.$uid.'" ')->row();
+		return $result->id;
 	}
 
 	public function inputSign()

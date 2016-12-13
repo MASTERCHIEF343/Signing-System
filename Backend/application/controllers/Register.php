@@ -28,6 +28,11 @@ class Register extends CI_Controller {
 		}else if(isset($check["success"])){
 			$this->db->insert('register', $data);
 			$id = $this->db->query('select id from register where name = "'.$data["name"].'" and passwd = "'.$data["passwd"].'" ')->row();
+			$registration = array(
+					'userid' => $id->id,
+					'signstatus' => 0
+				);
+			$this->db->insert('registration', $registration);
 			$this->output->set_content_type('application/json')->set_output(json_encode(array('id' => $id)));
 		}
 	}
