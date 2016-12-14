@@ -24,12 +24,16 @@ var SignatureService = (function () {
         this.checkurl = 'http://localhost/signing-system/Backend/checksign';
     }
     //check signature
-    SignatureService.prototype.checkSign = function () {
-        return this.http.get(this.checkurl).map(this.extractData).catch(this.handleError);
+    SignatureService.prototype.checkSign = function (data) {
+        var body = JSON.stringify({ data: data });
+        var headers = new http_2.Headers({ 'Content-Type': 'application/json' });
+        var options = new http_2.RequestOptions({ headers: headers });
+        return this.http.post(this.checkurl, body, options).map(this.extractData).catch(this.handleError);
     };
     //transform to json
     SignatureService.prototype.extractData = function (res) {
         var data = res.json() || {};
+        console.log(res);
         return data;
     };
     //input signature

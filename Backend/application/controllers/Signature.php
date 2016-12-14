@@ -33,11 +33,19 @@ class Signature extends CI_Controller {
 		$id = $this->sign_Model->getId($userid);
 		//when haven't sign
 		if($signstatus == 0){
+			//insert into registration
 			$this->db->set($data);
 			$this->db->where('id', $id);
 			$this->db->update('registration');
+			//insert into logs
+			$logs = array(
+				'userid' => $userid,
+				'signdate' => $lastsign
+			);
+			$this->db->insert('logs', $logs);
+			$this->output->set_content_type('application/json')->set_output(json_encode(array('warning' => '1')));
 		}else{
-			echo "1";
+			$this->output->set_content_type('application/json')->set_output(json_encode(array('warning' => '0')));
 		}
 	}
 }

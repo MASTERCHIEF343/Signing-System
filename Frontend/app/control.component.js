@@ -24,24 +24,27 @@ var ControlComponent = (function () {
         this._signatureService = _signatureService;
         this.msgs = [];
     }
-    ControlComponent.prototype.Success = function () {
-        // this.renderer.setElementAttribute(this.el.nativeElement.querySelector("#isDisabled"), 'disabled', 'disabled');
-        this.msgs = [];
-        var today = new Date().toLocaleString();
-        var timer = new date_time_1.Timer(this.id, today);
-        console.log(this.id);
-        this._signatureService.timerSign(timer).subscribe();
-        this.msgs.push({ severity: 'success', summary: 'Info Message', detail: 'PrimeNG rocks' });
-    };
-    ControlComponent.prototype.clear = function () {
-        this.msgs = [];
-    };
     ControlComponent.prototype.ngOnInit = function () {
         var data = this.getCookie();
         var user = JSON.parse(data['u']);
         this.id = Number(user.id);
         this.renderer.setElementStyle(this.month.nativeElement, 'display', 'block');
-        // this._signatureService.checkSign().subscribe()
+        //check signstatus
+        var userid = this.id;
+        var today = new Date().toLocaleString();
+        var timer = new date_time_1.Timer(this.id, today);
+        //this._signatureService.checkSign(timer).subscribe();
+    };
+    ControlComponent.prototype.Success = function () {
+        this.renderer.setElementAttribute(this.el.nativeElement.querySelector("#isDisabled"), 'disabled', 'disabled');
+        this.msgs = [];
+        var today = new Date().toLocaleString();
+        var timer = new date_time_1.Timer(this.id, today);
+        this._signatureService.timerSign(timer).subscribe();
+        this.msgs.push({ severity: 'success', summary: 'Info Message', detail: 'PrimeNG rocks' });
+    };
+    ControlComponent.prototype.clear = function () {
+        this.msgs = [];
     };
     ControlComponent.prototype.getCookie = function () {
         var data = this._CookieServices.getAll();

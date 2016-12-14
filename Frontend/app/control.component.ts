@@ -26,14 +26,28 @@ export class ControlComponent{
 		private _signatureService: SignatureService
 	){}
 
+	//ngOnInit
+	id:number;
+
+	ngOnInit(){
+		let data = this.getCookie();
+		let user = JSON.parse(data['u']);
+		this.id = Number(user.id);
+		this.renderer.setElementStyle(this.month.nativeElement, 'display', 'block');
+		//check signstatus
+		let userid = this.id;
+		let today = new Date().toLocaleString();
+		let timer = new Timer(this.id, today);
+		//this._signatureService.checkSign(timer).subscribe();
+	}
+
 	msgs: Message[] = [];
 
 	Success(){
-		// this.renderer.setElementAttribute(this.el.nativeElement.querySelector("#isDisabled"), 'disabled', 'disabled');
+		this.renderer.setElementAttribute(this.el.nativeElement.querySelector("#isDisabled"), 'disabled', 'disabled');
 		this.msgs = [];
 		let today = new Date().toLocaleString();
 		let timer = new Timer(this.id, today);
-		console.log(this.id);
 		this._signatureService.timerSign(timer).subscribe();
 		this.msgs.push({severity:'success', summary:'Info Message', detail:'PrimeNG rocks'});
 	}
@@ -45,16 +59,6 @@ export class ControlComponent{
 	@ViewChild('monthtimes') month: ElementRef;
 	@ViewChild('filesystems') file: ElementRef;
 	@ViewChild('messages') message: ElementRef;
-
-	id:number;
-
-	ngOnInit(){
-		let data = this.getCookie();
-		let user = JSON.parse(data['u']);
-		this.id = Number(user.id);
-		this.renderer.setElementStyle(this.month.nativeElement, 'display', 'block');
-		// this._signatureService.checkSign().subscribe()
-	}
 
 	getCookie(){
 		let data = this._CookieServices.getAll();
