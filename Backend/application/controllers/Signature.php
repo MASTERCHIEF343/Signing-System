@@ -16,6 +16,14 @@ class Signature extends CI_Controller {
 		date_default_timezone_set("Asia/Shanghai");
 	}	
 
+	//ngInit
+	public function checksign(){
+		$params = json_decode($this->input->raw_input_stream);
+		$userid = $params->data->userid;
+		$signstatus = $this->sign_Model->checkSignStatus($userid);
+		$this->output->set_content_type('application/json')->set_output(json_encode(array('signstatus' => $signstatus)));
+	}
+
 	public function dateTimer(){
 		$params = json_decode($this->input->raw_input_stream);
 		$userid = $params->data->userid;

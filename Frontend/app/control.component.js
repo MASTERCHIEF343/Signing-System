@@ -25,6 +25,7 @@ var ControlComponent = (function () {
         this.msgs = [];
     }
     ControlComponent.prototype.ngOnInit = function () {
+        var _this = this;
         var data = this.getCookie();
         var user = JSON.parse(data['u']);
         this.id = Number(user.id);
@@ -33,7 +34,12 @@ var ControlComponent = (function () {
         var userid = this.id;
         var today = new Date().toLocaleString();
         var timer = new date_time_1.Timer(this.id, today);
-        //this._signatureService.checkSign(timer).subscribe();
+        this._signatureService.checkSign(timer).subscribe(function (res) { return _this.onInitSignButton(res); });
+    };
+    ControlComponent.prototype.onInitSignButton = function (res) {
+        if (res.signstatus == 1) {
+            this.renderer.setElementAttribute(this.el.nativeElement.querySelector("#isDisabled"), 'disabled', 'disabled');
+        }
     };
     ControlComponent.prototype.Success = function () {
         this.renderer.setElementAttribute(this.el.nativeElement.querySelector("#isDisabled"), 'disabled', 'disabled');

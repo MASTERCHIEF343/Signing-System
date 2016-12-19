@@ -38,7 +38,13 @@ export class ControlComponent{
 		let userid = this.id;
 		let today = new Date().toLocaleString();
 		let timer = new Timer(this.id, today);
-		//this._signatureService.checkSign(timer).subscribe();
+		this._signatureService.checkSign(timer).subscribe(res =>this.onInitSignButton(res) );
+	}
+
+	onInitSignButton(res){
+		if(res.signstatus == 1){
+			this.renderer.setElementAttribute(this.el.nativeElement.querySelector("#isDisabled"), 'disabled', 'disabled');
+		}
 	}
 
 	msgs: Message[] = [];

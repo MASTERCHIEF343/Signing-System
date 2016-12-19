@@ -33,7 +33,6 @@ var SignatureService = (function () {
     //transform to json
     SignatureService.prototype.extractData = function (res) {
         var data = res.json() || {};
-        console.log(res);
         return data;
     };
     //input signature

@@ -31,7 +31,6 @@ export class SignatureService{
 	//transform to json
 	private extractData(res: Response){
 		let data = res.json() || { };
-		console.log(res);
 		return data;
 	}
 
