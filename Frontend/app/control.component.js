@@ -23,6 +23,23 @@ var ControlComponent = (function () {
         this.http = http;
         this._signatureService = _signatureService;
         this.msgs = [];
+        this.data = {
+            labels: ['Early', 'Middle', 'End'],
+            datasets: [
+                {
+                    label: 'First Dataset',
+                    data: [65, 59, 80],
+                    fill: false,
+                    borderColor: '#4bc0c0'
+                },
+                {
+                    label: 'Second Dataset',
+                    data: [28, 48, 40],
+                    fill: false,
+                    borderColor: '#565656'
+                }
+            ]
+        };
     }
     ControlComponent.prototype.ngOnInit = function () {
         var _this = this;

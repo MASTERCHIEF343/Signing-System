@@ -18,7 +18,7 @@ import { CookieService } from 'angular2-cookie/services/cookies.service';
 
 //Directive
 import { userMenuDirective } from './services/user-menu.directive';
-
+import { ChartModule } from 'primeng/primeng';
 import { GrowlModule } from 'primeng/primeng';
 
 @NgModule({
@@ -30,6 +30,7 @@ import { GrowlModule } from 'primeng/primeng';
 		JsonpModule,
 		AppRoutingModule,
 		GrowlModule,
+		ChartModule
 	],
 	declarations: [
 		AppComponent,

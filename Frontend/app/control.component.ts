@@ -18,13 +18,32 @@ import { Timer } from './class/date-time';
 
 export class ControlComponent{
 
+	data: any;
+
 	constructor(
 		private _CookieServices: CookieService,
 		private el: ElementRef,
 		private renderer: Renderer,
 		private http: Http,
 		private _signatureService: SignatureService
-	){}
+	){
+		this.data = {
+			labels: ['Early', 'Middle', 'End'],
+			datasets: [
+			{
+				label: 'First Dataset',
+				data: [65, 59, 80],
+				fill: false,
+				borderColor: '#4bc0c0'
+			},
+			{
+				label: 'Second Dataset',
+				data: [28, 48, 40],
+				fill: false,
+				borderColor: '#565656'
+			}    
+		};
+	}
 
 	//ngOnInit
 	id:number;

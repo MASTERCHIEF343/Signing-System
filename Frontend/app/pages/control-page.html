@@ -41,6 +41,9 @@
 					<p-growl [value]="msgs" [life]="2500"></p-growl>
 					<div>
 						<button type="button" pButton (click)="Success()" id="isDisabled" label="Success">Success</button >
+						<p-growl [value]="msgs"></p-growl>
+
+						<p-chart type="line" [data]="data" (onDataSelect)="selectData($event)"></p-chart>
 					</div>
 				</div>
 			</div>

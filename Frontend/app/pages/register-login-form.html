@@ -14,14 +14,14 @@
 				<div class="form-group">
 					<label for="name">姓名</label>
 					<input type="text" id="name" class="form-control"
-					formControlName="name" required >
+					formControlName="name" required placeholder="names... ">
 					<div *ngIf="formErrors.name" class="alert alert-danger">
 						{{ formErrors.name }}
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="passwd">密码</label>
-					<input type="passwd" class="form-control" required formControlName="passwd">
+					<input type="passwd" class="form-control" required formControlName="passwd" placeholder="passwords...">
 					<div *ngIf="formErrors.passwd" class="alert alert-danger">
 						{{ formErrors.passwd }}
 					</div>
@@ -30,7 +30,7 @@
 					{{ errs }}
 				</div>
 				<div>
-					<a (click)="navTologup()" class="active" style="font-size: 12px;text-decoration: none;">还未注册?</a>
+					<a (click)="navTologup()" class="active" style="font-size: 12px;text-decoration: none;cursor: pointer;">还未注册?</a>
 					<button type="submit" class="btn"  [class.btn-success]="loginForm.valid" [disabled]="!loginForm.valid">登录</button>
 				</div>
 			</form>

@@ -16,6 +16,12 @@ class Sign_Model extends CI_Model {
 		return $result->signstatus;
 	}
 
+	public function getSignTimes($userid){
+		$uid = $userid;
+		$result = $this->db->query('select signdate from logs where userid="'.$uid.'" ')->result();
+		return $result;
+	}
+
 	public function getId($userid)
 	{
 		$uid = $userid;

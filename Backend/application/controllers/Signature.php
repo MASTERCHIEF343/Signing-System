@@ -21,7 +21,12 @@ class Signature extends CI_Controller {
 		$params = json_decode($this->input->raw_input_stream);
 		$userid = $params->data->userid;
 		$signstatus = $this->sign_Model->checkSignStatus($userid);
-		$this->output->set_content_type('application/json')->set_output(json_encode(array('signstatus' => $signstatus)));
+		$signtimes = $this->sign_Model->getSignTimes($userid);
+		foreach ($signtimes as $row) {
+			$time = substr($row->signdate, 8, 2);
+			echo $time."/n";
+		}	
+		// $this->output->set_content_type('application/json')->set_output(json_encode(array('signstatus' => $signstatus)));
 	}
 
 	public function dateTimer(){

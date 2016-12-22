@@ -11,6 +11,7 @@ import { User } from './class/user';
 import { RegisterService } from './services/register.service';
 import { CookieService } from 'angular2-cookie/core';
 import { AuthService } from './services/auth.service';
+import { TooltipModule } from 'primeng/primeng';
 
 @Component({
 	moduleId: module.id,
