@@ -28,18 +28,18 @@ export class SignatureService{
 		return this.http.post(this.checkurl, body, options).map(this.extractData).catch(this.handleError);
 	}
 
-	//transform to json
-	private extractData(res: Response){
-		let data = res.json() || { };
-		return data;
-	}
-
 	//input signature
 	timerSign(data): Observable<Timer>{
 		let body = JSON.stringify({data});
 		let headers = new Headers({ 'Content-Type': 'application/json' });
 		let options = new RequestOptions({ headers: headers });
 		return this.http.post(this.dateTimer, body, options).map(res => ' ').catch(this.handleError);
+	}
+
+	//transform to json
+	private extractData(res: Response){
+		let data = res.json() || { };
+		return data;
 	}
 
 	//Errors absolutes

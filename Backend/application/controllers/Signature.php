@@ -20,13 +20,25 @@ class Signature extends CI_Controller {
 	public function checksign(){
 		$params = json_decode($this->input->raw_input_stream);
 		$userid = $params->data->userid;
+		//get signstatus
 		$signstatus = $this->sign_Model->checkSignStatus($userid);
+		//caculate times
+		$tarray = array(
+			0 => 0,
+			1 => 0,
+			2 =>0
+		);
 		$signtimes = $this->sign_Model->getSignTimes($userid);
 		foreach ($signtimes as $row) {
 			$time = substr($row->signdate, 8, 2);
-			echo $time."/n";
+			$time = (int)($time/10);
+			foreach ($tarray as $key => $value) {
+				if($key == $time){
+					$tarray[$key]++;
+				}
+			}
 		}	
-		// $this->output->set_content_type('application/json')->set_output(json_encode(array('signstatus' => $signstatus)));
+		$this->output->set_content_type('application/json')->set_output(json_encode(array('signstatus' => $signstatus, 'times' => $tarray)));
 	}
 
 	public function dateTimer(){

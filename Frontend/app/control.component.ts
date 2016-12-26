@@ -32,16 +32,10 @@ export class ControlComponent{
 			datasets: [
 			{
 				label: 'First Dataset',
-				data: [65, 59, 80],
-				fill: false,
+				data: [],
+				fill: true,
 				borderColor: '#4bc0c0'
-			},
-			{
-				label: 'Second Dataset',
-				data: [28, 48, 40],
-				fill: false,
-				borderColor: '#565656'
-			}    
+			}]    
 		};
 	}
 
@@ -63,7 +57,12 @@ export class ControlComponent{
 	onInitSignButton(res){
 		if(res.signstatus == 1){
 			this.renderer.setElementAttribute(this.el.nativeElement.querySelector("#isDisabled"), 'disabled', 'disabled');
-		}
+		};
+		this.data.datasets[0].data.push(res.times[0]);
+		this.data.datasets[0].data.push(res.times[1]);
+		this.data.datasets[0].data.push(res.times[2]);
+		// this.data.datasets[0].data[1] = res.times[1];
+		// this.data.datasets[0].data[2] = res.times[2];
 	}
 
 	msgs: Message[] = [];

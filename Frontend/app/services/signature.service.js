@@ -30,17 +30,17 @@ var SignatureService = (function () {
         var options = new http_2.RequestOptions({ headers: headers });
         return this.http.post(this.checkurl, body, options).map(this.extractData).catch(this.handleError);
     };
-    //transform to json
-    SignatureService.prototype.extractData = function (res) {
-        var data = res.json() || {};
-        return data;
-    };
     //input signature
     SignatureService.prototype.timerSign = function (data) {
         var body = JSON.stringify({ data: data });
         var headers = new http_2.Headers({ 'Content-Type': 'application/json' });
         var options = new http_2.RequestOptions({ headers: headers });
         return this.http.post(this.dateTimer, body, options).map(function (res) { return ' '; }).catch(this.handleError);
+    };
+    //transform to json
+    SignatureService.prototype.extractData = function (res) {
+        var data = res.json() || {};
+        return data;
     };
     //Errors absolutes
     SignatureService.prototype.handleError = function (error) {
