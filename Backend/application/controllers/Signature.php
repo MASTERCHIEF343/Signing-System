@@ -15,20 +15,17 @@ class Signature extends CI_Controller {
 		//set Timezone
 		date_default_timezone_set("Asia/Shanghai");
 	}	
-
 	//ngInit
-	public function checksign(){
-		$params = json_decode($this->input->raw_input_stream);
-		$userid = $params->data->userid;
-		//get signstatus
-		$signstatus = $this->sign_Model->checkSignStatus($userid);
+	public function getTimes(){
+		$num = $this->uri->uri_string();
+		$userid = substr($num, 9);
+		$signtimes = $this->sign_Model->getSignTimes($userid);
 		//caculate times
 		$tarray = array(
 			0 => 0,
 			1 => 0,
 			2 =>0
 		);
-		$signtimes = $this->sign_Model->getSignTimes($userid);
 		foreach ($signtimes as $row) {
 			$time = substr($row->signdate, 8, 2);
 			$time = (int)($time/10);
@@ -37,8 +34,17 @@ class Signature extends CI_Controller {
 					$tarray[$key]++;
 				}
 			}
-		}	
-		$this->output->set_content_type('application/json')->set_output(json_encode(array('signstatus' => $signstatus, 'times' => $tarray)));
+			$this->output->set_content_type('application/json')->set_output(json_encode(array('times' => $tarray)));
+		}
+	}
+
+	//check sign
+	public function checkSign(){
+		$params = json_decode($this->input->raw_input_stream);
+		$userid = $params->data->userid;
+		//get signstatus
+		$signstatus = $this->sign_Model->checkSignStatus($userid);
+		$this->output->set_content_type('application/json')->set_output(json_encode(array('signstatus' => $signstatus)));
 	}
 
 	public function dateTimer(){

@@ -18,29 +18,28 @@ import { Timer } from './class/date-time';
 
 export class ControlComponent{
 
-	data: any;
-
 	constructor(
 		private _CookieServices: CookieService,
 		private el: ElementRef,
 		private renderer: Renderer,
 		private http: Http,
 		private _signatureService: SignatureService
-	){
-		this.data = {
-			labels: ['Early', 'Middle', 'End'],
-			datasets: [
-			{
-				label: 'First Dataset',
-				data: [],
-				fill: true,
-				borderColor: '#4bc0c0'
-			}]    
-		};
-	}
+	){}
 
 	//ngOnInit
 	id:number;
+
+	//data of charts
+	data = {
+		labels: ['Early', 'Middle', 'End'],
+		datasets: [
+		{
+			label: 'My First dataset',
+			data: [],
+			fill: true,
+			borderColor: '#4bc0c0'
+		}]    
+	};
 
 	ngOnInit(){
 		let data = this.getCookie();
@@ -51,18 +50,20 @@ export class ControlComponent{
 		let userid = this.id;
 		let today = new Date().toLocaleString();
 		let timer = new Timer(this.id, today);
-		this._signatureService.checkSign(timer).subscribe(res =>this.onInitSignButton(res) );
+		this._signatureService.checkSign(timer).subscribe(res =>this.onInitStatus(res));
+		this._signatureService.getSignTimes(userid).subscribe(res => this.onInitTimes(res));
 	}
 
-	onInitSignButton(res){
+	onInitTimes(res){
+		for(let i = 0;i < 3;i ++){
+			this.data.datasets[0].data.push(res.times[i]);
+		}
+	}
+
+	onInitStatus(res){
 		if(res.signstatus == 1){
 			this.renderer.setElementAttribute(this.el.nativeElement.querySelector("#isDisabled"), 'disabled', 'disabled');
 		};
-		this.data.datasets[0].data.push(res.times[0]);
-		this.data.datasets[0].data.push(res.times[1]);
-		this.data.datasets[0].data.push(res.times[2]);
-		// this.data.datasets[0].data[1] = res.times[1];
-		// this.data.datasets[0].data[2] = res.times[2];
 	}
 
 	msgs: Message[] = [];

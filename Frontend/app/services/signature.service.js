@@ -21,14 +21,20 @@ var SignatureService = (function () {
         this.http = http;
         //Urls
         this.dateTimer = 'http://localhost/signing-system/Backend/signature';
-        this.checkurl = 'http://localhost/signing-system/Backend/checksign';
+        this.checkUrl = 'http://localhost/signing-system/Backend/checksign';
+        this.getTimes = 'http://localhost/signing-system/Backend/gettimes/';
     }
+    //Init get sign times
+    SignatureService.prototype.getSignTimes = function (data) {
+        var url = this.getTimes + data;
+        return this.http.get(url).map(this.extractData).catch(this.handleError);
+    };
     //check signature
     SignatureService.prototype.checkSign = function (data) {
         var body = JSON.stringify({ data: data });
         var headers = new http_2.Headers({ 'Content-Type': 'application/json' });
         var options = new http_2.RequestOptions({ headers: headers });
-        return this.http.post(this.checkurl, body, options).map(this.extractData).catch(this.handleError);
+        return this.http.post(this.checkUrl, body, options).map(this.extractData).catch(this.handleError);
     };
     //input signature
     SignatureService.prototype.timerSign = function (data) {

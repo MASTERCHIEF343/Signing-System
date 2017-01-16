@@ -22,18 +22,19 @@ var ControlComponent = (function () {
         this.renderer = renderer;
         this.http = http;
         this._signatureService = _signatureService;
-        this.msgs = [];
+        //data of charts
         this.data = {
             labels: ['Early', 'Middle', 'End'],
             datasets: [
                 {
-                    label: 'First Dataset',
+                    label: 'My First dataset',
                     data: [],
                     fill: true,
                     borderColor: '#4bc0c0'
                 }
             ]
         };
+        this.msgs = [];
     }
     ControlComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -45,18 +46,19 @@ var ControlComponent = (function () {
         var userid = this.id;
         var today = new Date().toLocaleString();
         var timer = new date_time_1.Timer(this.id, today);
-        this._signatureService.checkSign(timer).subscribe(function (res) { return _this.onInitSignButton(res); });
+        this._signatureService.checkSign(timer).subscribe(function (res) { return _this.onInitStatus(res); });
+        this._signatureService.getSignTimes(userid).subscribe(function (res) { return _this.onInitTimes(res); });
     };
-    ControlComponent.prototype.onInitSignButton = function (res) {
+    ControlComponent.prototype.onInitTimes = function (res) {
+        for (var i = 0; i < 3; i++) {
+            this.data.datasets[0].data.push(res.times[i]);
+        }
+    };
+    ControlComponent.prototype.onInitStatus = function (res) {
         if (res.signstatus == 1) {
             this.renderer.setElementAttribute(this.el.nativeElement.querySelector("#isDisabled"), 'disabled', 'disabled');
         }
         ;
-        this.data.datasets[0].data.push(res.times[0]);
-        this.data.datasets[0].data.push(res.times[1]);
-        this.data.datasets[0].data.push(res.times[2]);
-        // this.data.datasets[0].data[1] = res.times[1];
-        // this.data.datasets[0].data[2] = res.times[2];
     };
     ControlComponent.prototype.Success = function () {
         this.renderer.setElementAttribute(this.el.nativeElement.querySelector("#isDisabled"), 'disabled', 'disabled');

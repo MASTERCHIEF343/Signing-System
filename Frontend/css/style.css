@@ -20,6 +20,11 @@ a{
 	position: relative;
 	top: 0px;
 	left: 0px;
+	width: 100%;
+	border-radius: 0px;
+	border-bottom: 1px solid #333;
+	background-color: #1976D2;
+	background-image: none;
 }
 .nav{
 	height: 56px;
@@ -30,13 +35,6 @@ a{
 .nav>li>a{
 	height: inherit;
 }
-.navbar{
-	width: 100%;
-	border-radius: 0px;
-	border-bottom: 1px solid #333;
-	background-color: #1976D2;
-	background-image: none;
-}
 .navbar-header{
 	margin-left: 15px;
 }
@@ -44,6 +42,7 @@ a{
 	background: url(img/S.png)  8px  no-repeat;
 	color: #fff;
 	height: 56px;
+	padding-right: 8px;
 	margin-right: 72px;
 	text-indent: 45px;
 	line-height: 55px;

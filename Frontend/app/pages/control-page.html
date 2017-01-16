@@ -19,7 +19,6 @@
 							<a (click)="FileSystems()">
 								<span class="glyphicon glyphicon-folder-open"></span>
 								<span>文件存储</span>
-								<i class="fa fa-arrows"></i>
 							</a>
 						</li>
 						<li>
@@ -38,12 +37,20 @@
 					<h2 class="header-title">月活跃度</h2>
 				</header>
 				<div style="top: 500px;">
-					<p-growl [value]="msgs" [life]="2500"></p-growl>
+				<button class="sign-button-bt" pButton (click)="Success()" id="isDisabled" label="Success">
+					<span id="sign-button-icon">今日签到</span>
+				</button>
 					<div>
-						<button type="button" pButton (click)="Success()" id="isDisabled" label="Success">Success</button >
-						<p-growl [value]="msgs"></p-growl>
-
-						<p-chart type="line" [data]="data" (onDataSelect)="selectData($event)"></p-chart>
+						<div id="sign-button">
+							<h2 id="sign-button-title">每日签到</h2>
+						</div>
+						<div id="sign-chart">
+							<h2 id="sign-chart-title">近期动态</h2>
+							<div id="sign-chart-pic">
+								<p-growl [value]="msgs"></p-growl>
+								<p-chart type="line" [data]="data" (onDataSelect)="selectData($event)"></p-chart>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

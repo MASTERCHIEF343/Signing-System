@@ -28,10 +28,4 @@ class Sign_Model extends CI_Model {
 		$result = $this->db->query('select id from registration where userid="'.$uid.'" ')->row();
 		return $result->id;
 	}
-
-	public function inputSign()
-	{
-
-	}
-	
 }
